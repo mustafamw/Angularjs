@@ -1,0 +1,336 @@
+#load-payslipstest
+{
+    clear: both;
+    overflow-x: auto;
+    width: 100%;
+}
+.companytitle 
+{
+    background: #f4f4f4;
+    padding: 9px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 0;
+}
+select.datepayslips
+{
+    border: 0 !important;  /*Removes border*/
+    -webkit-appearance: none;  /*Removes default chrome and safari style*/
+    -moz-appearance: none; /* Removes Default Firefox style*/
+    background: #0088cc url("https://justcrypt.it/img/nav-down.png") no-repeat;
+    background-position: 139px center;
+    background-size: 18px;
+    width: 170px; /*Width of select dropdown to give space for arrow image*/
+    text-indent: 0.01px; /* Removes default arrow from firefox*/
+    text-overflow: "";  /*Removes default arrow from firefox*/ /*My custom style for fonts*/
+    color: #FFF;
+    border-radius: 25px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+    margin-right: 20px;
+}
+.payslipdate
+{
+    float: left;
+}
+#payslips .companytitle h1
+{
+    position: absolute;
+    top: 12px;
+    left: 115px;
+    font-size: 18px;
+    /* right: 0; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    text-transform: uppercase;
+}
+#payslips img
+{
+    width: 100px;
+}
+#payslips
+{
+    position: relative;
+    margin-top: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    width: 975px;
+    border: 1px solid #126eff;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+#payslips .titleinfo
+{
+    padding: 3px;
+    padding-left: 10px;
+}
+#payslips .payment
+{
+    position: relative;
+    width: 42%;
+    height: 320px;
+    font-size: 14px;
+    background: white;
+    color: black;
+    padding-top: 0;
+    float: left;
+    margin: 0.5%;
+    border: 1px solid #126eff;
+}
+#payslips .pcontainer
+{
+    height: 25px;
+    line-height: 25px;
+}
+#payslips .netpaydetail .pcontainer
+{
+    height: 30px;
+}
+#payslips .payment .titlebg > div
+{
+    float: left;
+    white-space: nowrap;
+    background: #126eff;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+    padding-left: 10px;
+    margin-right: -10px;
+}
+#payslips .payment .pcontainer > div
+{
+    float: left;
+    white-space: nowrap;
+    font-size: 14px;
+    line-height: 25px;
+    height: 25px;
+    padding-left: 10px;
+    margin-right: -10px;
+}
+
+#payslips .payment .titlebg > div.title,
+#payslips .payment .pcontainer > div.title
+{
+    width: 40%;
+}
+
+#payslips .payment .titlebg > div.rate,
+#payslips .payment .pcontainer > div.rate
+{
+    width: 15%
+}
+
+#payslips .payment .titlebg > div.unit,
+#payslips .payment .pcontainer > div.unit
+{
+    width: 15%
+}
+#payslips .payment .titlebg > div.gross,
+#payslips .payment .pcontainer > div.gross
+{
+    padding-right: 10px;
+    padding-left: 0px;
+    text-align: right;
+    width: 27.5%;
+}
+
+#payslips .deduction .yrtodate
+{
+    display: block;
+    white-space: nowrap;
+    background: #126eff;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+    width: 100%;
+    float: left;
+}
+
+#payslips .deduction .yrtodate.d1
+{
+    width: 50%;
+    text-align: left;
+    padding-left: 10px;
+    margin-right: -10px;
+}
+
+#payslips .deduction .yrtodate.d2
+{
+    width: 50%;
+    text-align: right;
+    padding-right: 10px;
+    margin-left: -10px;
+}
+
+#payslips .deduction
+{
+  position: relative;
+  width: 27.19%;
+  font-size: 14px;
+  background: white;
+  border: 1px solid #126eff;
+  color: black;
+  padding-top: 0;
+  float: left;
+  margin: 0.5%;
+  height: 320px;
+}
+
+#payslips .deduction .pcontainer
+{
+    white-space: nowrap;
+}
+#payslips .deduction .pcontainer > div
+{
+    float: left;
+}
+#payslips .deduction .pcontainer > div.title
+{
+    width: 60%;
+    padding-left: 10px;
+    margin-right: -10px;
+}
+
+#payslips .deduction .pcontainer > div.rate
+{
+    width: 40%;
+    padding-right: 10px;
+    margin-left: -10px;
+    text-align: right;
+}
+
+
+#payslips .employeedetail
+{
+  font-size: 14px;
+  background: white;
+  color: black;
+  padding-top: 0;
+  margin: 0.5%;
+  width: 80%;
+  float: left;
+  border: 1px solid #126eff;
+}
+#payslips .employeedetail .title > div,
+#payslips .employeedetail .info > div
+{
+    width: 20%;
+    float: left;
+    text-align: center;
+}
+#payslips .employeedetail .title > div
+{
+    background: #126eff;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+}
+
+#payslips .employeedetail .info > div
+{
+    text-align: center;
+    font-size: 14px;
+    line-height: 31px;
+    height: 31px;
+
+}
+
+#payslips .employeedetail div.company_name
+{
+    width: 40%;
+}
+
+#payslips .departmentdetail
+{
+    font-size: 14px;
+    background: white;
+    color: black;
+    padding-top: 0;
+    margin: 0.5%;
+    border: 1px solid #126eff;
+    clear: both;
+}
+#payslips .departmentdetail .title,
+#payslips .departmentdetail .info
+{
+    clear: both;
+}
+#payslips .departmentdetail .title > div, 
+#payslips .departmentdetail .info > div
+{
+    float: left;
+    width: 25%;
+}
+#payslips .departmentdetail .title > div
+{
+    background: #126eff;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+}
+#payslips .departmentdetail .info > div
+{
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+#payslips .netpay
+{
+    float: left;
+    font-size: 14px;
+    background: white;
+    color: black;
+    margin: 0.5%;
+    width: 17.59%;
+    border: 1px solid #126eff;
+}
+#payslips .netpay .title
+{
+    background: #126eff;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+    border-bottom: 1px solid #126eff;
+}
+#payslips .netpay .info
+{
+    text-align: center;
+    font-size: 19px;
+    padding: 0px;
+    height: 30px;
+    line-height: 30px;
+}
+
+#printpayslip
+{
+    clear: both;
+    display: block;
+    float: left;
+    cursor: pointer;
+    height: 40px;
+}
+
+.clr
+{
+    clear: both
+}

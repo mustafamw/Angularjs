@@ -1,0 +1,40 @@
+<h3>Critical Illness Cover</h3>
+<table>
+    <thead>
+        <tr>
+            <td>
+                Window Salary:
+            </td>
+            <td>
+                Multiple:
+            </td>
+            <td>
+                CIC Cover:
+            </td>
+            <td>
+                Gross Cost:
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="cic.status == 200">
+            <td>
+                {{cic.data.cic_list[0].window_salary | currency:"£":2}}
+            </td>
+            <td>
+                {{cic.data.cic_list[0].flex_multiple}}x
+            </td>
+            <td>
+                {{cic.data.cic_list[0].window_salary * cic.data.cic_list[0].flex_multiple | currency:"£":2}}
+            </td>
+            <td>
+                {{cic.data.cic_list[0].gross_cost | currency:"£":2}}
+            </td>
+        </tr>
+        <tr ng-if="cic.status != 200">
+            <td colspan="3">
+                Currently you dont have critcal illness cover cover...
+            </td>
+        </tr>
+    </tbody>
+</table>

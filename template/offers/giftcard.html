@@ -1,0 +1,83 @@
+<h3>Gift Cards</h3>
+
+<div class="search_container">
+	<input type="text" ng-model="search"/>
+	<select  id="categoryOption" ng-model="giftcard_category">
+	    <option value="" ng-selected="categoryselected == category">Category:</option>
+	    <option  ng-repeat="category in categories" value="{{category}}">
+	      {{category}}
+	    </option>
+	</select>
+</div>
+
+<div class="offer_types">
+	<div class="listtypes"  ng-click="select_offer_type('')" ng-class="{active: '' == offer_type}">
+		<div class="logo"><img ng-src="http://sensatejournal.com//wp-content/themes/sensate/images/icon_all.png"/></div>
+		<span>All</span>
+	</div>
+	<div class="listtypes"  ng-repeat="type in types" ng-click="select_offer_type(type.type)" ng-class="{active: type.type == offer_type}"> 
+		<div class="logo"><img ng-src="{{type.image}}"/></div>
+		<span>{{type.type}}</span>
+	</div>
+	<div class="listtypes"  ng-click="order_type('highest'); predicate = '-giftcarddiscount'; reverse = !reverse;" ng-class="{orderby: 'highest' == order_active}">
+		<div class="logo"><img ng-src="http://www.free-icons-download.net/images/up-arrow-down-arrow-icon-84290.png"/></div>
+		<span>High/Low</span>
+	</div>
+	<div class="listtypes"  ng-click="order_type('lowest'); predicate = ''; reverse = false;" ng-class="{orderby: 'lowest' == order_active}">
+		<div class="logo"><img ng-src="http://simpleicon.com/wp-content/uploads/undo-5.png"/></div>
+		<span>Normal</span>
+	</div>
+</div>
+
+<div class="offer_cashback_container">
+	<div ng-repeat="giftcard in giftcard | filter:{'name':search, 
+													categories:giftcard_category, 
+													offer_type:offer_type}
+											  |	orderBy:predicate:reverse" class="offer_giftcard" ng-click="giftcard_info(giftcard)">
+		<div class='discount_short' ng-if="giftcard.discount !='0'">Save {{giftcard.discount}}%</div>
+		<div class='discount_short' ng-if="giftcard.discount =='0'">For more...</div>
+		<div class="logoType"><img ng-src="{{types[giftcard.type].image}}" width="20px"/></div>
+		<img ng-src="{{giftcard.logo}}" width="200px" class="logo"/>
+	</div>
+</div>
+
+
+<div id="offer_giftcard_info" class="offer_giftcard_info" ng-if="giftcard_selected">
+	<div class="offer_container">
+		<div ng-if="!tandcshow">
+			<div class="close">
+				<img ng-src="http://www.clker.com/cliparts/n/h/o/B/H/L/exit-closed-symbol-hi.png" width="20px" ng-click="close()"/>
+			</div>
+			<div class="logoType">
+				<img ng-src="{{types[giftcard_selected.type].image}}" width="20px"/>
+			</div>
+			<div class="title">
+				<h3>{{giftcard_selected.name}}</h3>
+			</div>
+			<div class="logo">
+				<img ng-src="{{giftcard_selected.logo}}" err-src="https://www.futurerising.com/img/Preloader.gif" ng-click="externalLink(link)"/>
+			</div>
+			<div class="description" ng-init="more_info(giftcard_selected.short_description, giftcard_selected.long_description)">
+				{{description}}
+			</div>
+			<div class="more_input" ng-if="giftcard_selected.short_description != giftcard_selected.long_description">
+				<input type="submit" ng-click="more_info(giftcard_selected.short_description, giftcard_selected.long_description)" value="{{more_details}}"/>
+			</div>
+			<div class="category">
+				<input type="submit"  ng-repeat="category in giftcard_selected.categories"  ng-model="category" ng-click="category_select(category)" value="{{category}}" ng-if="category != ''"/>
+			</div>
+			<div class="tandclink" ng-if="giftcard_selected.term_and_condition != ''">
+				<input type="submit" value="Terms & Conditions" ng-click="tandc(giftcard_selected.term_and_condition)"/>
+			</div>
+			<div class="link">
+				<a href="#/giftcard" ng-click="external_link(giftcard_selected.code)">Click Here</a>
+			</div>
+		</div>
+		<div ng-if="tandcshow">
+			<div class="close"><img ng-src="http://www.clker.com/cliparts/n/h/o/B/H/L/exit-closed-symbol-hi.png" width="20px" ng-click="close_tandc()"/></div>
+			<div class="title"><h3>{{title}}</h3></div>
+			<div class="titletandc"><h4>{{titletandc}}</h4></div>
+			<div class="tandcinfo" ng-bind-html="tandcinfo"></div>
+		</div>
+	</div>
+</div>

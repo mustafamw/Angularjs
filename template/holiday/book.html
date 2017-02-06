@@ -1,0 +1,54 @@
+<h3>Holiday Request</h3>
+<div class="booking_container" ng-if="holiday_detail">
+    <div id="start">
+		<input id="calendar-start" 
+               type="text" 
+               pikaday="datePickerStart" 
+               ng-model="startDateModel" 
+               on-select="onStartPikadaySelect(pikaday)" 
+               format="DD/MM/YYYY" readonly>
+		<div id="start-half-day" class="half-day">
+            <select id="optnoon" 
+                    ng-model="startNoon"
+                    required ng-options='option.value as option.name for option in noonOptions'
+                    ng-change="HalfDayOption('start', startNoon)"
+                    ng-if="!optionDisable('start', startDateModel) && 
+                           holidayTaken > 0">
+            </select>
+		</div>
+    </div>
+    <div id="end">
+		<input id="calendar-end" 
+               type="text" 
+               pikaday="datePickerEnd"  
+               ng-model="endDateModel" 
+               on-select="onEndPikadaySelect(pikaday)"  
+               format="DD/MM/YYYY" readonly/>
+        <div id="end-half-day" class="half-day">
+            <select id="optnoon" 
+                    ng-model="endNoon"
+                    ng-change="HalfDayOption('end', endNoon)"
+                    required ng-options='option.value as option.name for option in noonOptions'
+                    ng-if="!optionDisable('end', endDateModel) && 
+                           holidayTaken > 0 &&
+                           !(startDateModel >= endDateModel)">
+
+            </select>
+        </div>
+    </div>
+    <div id="holidaysubmit">
+		<input type="submit" value="Submit" id="submit" ng-if="holidayTaken > 0 && remaining >= 0" ng-click="submit_request()"/>
+    </div>
+    <div ng-if="holiday_detail.status == 200">
+	    <div class="daysoff" ng-if="daysOff">
+	    	Days off: <span ng-repeat="days in daysOff">{{days | capitalize}}{{$last ? '' : ', '}}</span>
+	    </div>
+	    <div id="holidayTaken" ng-if="holidayTaken > 0">{{allowance_type | capitalize}}(s) Taken: {{holidayTaken}}</div>
+        <div id="allowance" ng-if="allowance">Holiday Allowance: {{allowance}}{{allowance_type | capitalize}}(s)</div>
+        <div id="totalHolidayBooked" ng-if="totalDayTaken > 0">Total Holiday Booked: {{totalDayTaken}}</div>
+	    <div id="remainingdays" ng-if="holidayTaken > 0">Remaining Days: {{remaining}}</div>
+    </div>
+    <div ng-if="holiday_detail.status != 200">
+      You have not been assigned your annual leave, please contact your HR in order to get this resolve
+    </div>
+</div>

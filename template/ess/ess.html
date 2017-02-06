@@ -1,0 +1,67 @@
+<h3>Employee Self Service</h3>
+<div ng-if="ess.status == 200">
+    <form name="essAmendForm" ng-model="ess_signup" ng-submit="ess_amend(ess_signup)">
+        <div>
+            <label>National Insurance no:</label>
+            <input type="text" name"ni_no" ng-model="ess_signup.ni_no" ng-class="{'warn':ess_signup.ni_no == '' || ess_signup.ni_no == undefined}" required/>
+        </div>
+        <div>
+            <label>Title:</label>
+            <select ng-model="ess_signup.title" name"title">
+                <option ng-repeat="title in titles" value="{{title}}" ng-selected="ess_signup.title == title">{{title | capitalize}}</option>
+            </select>
+        </div>
+        <div>
+            <label>Firstname:</label>
+            <input type="text" name"firstname"  ng-model="ess_signup.firstname" ng-class="{'warn':ess_signup.firstname == '' || ess_signup.firstname == undefined}" required/>
+        </div>
+        <div>
+            <label>Lastname:</label>
+            <input type="text" ng-model="ess_signup.lastname" name"lastname"  ng-class="{'warn':ess_signup.lastname == '' || ess_signup.lastname == undefined}"required/>
+        </div>
+        <div>
+            <label>Contact No:</label>
+            <input type="text" ng-model="ess_signup.contact_no" name"contact_no" ng-class="{'warn':ess_signup.contact_no == '' || ess_signup.contact_no == undefined}" required/>
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="email" ng-model="ess_signup.email" name"email" ng-class="{'warn':ess_signup.email == '' || ess_signup.email == undefined}" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"required/>
+            {{essAmendForm.email.$invalid}}
+        </div>
+        <div>
+            <label>Address:</label>
+            <input type="text" ng-model="ess_signup.address" name"address" ng-class="{'warn':ess_signup.address == '' || ess_signup.address == undefined}" required/>
+        </div>
+        <div>
+            <label>City:</label>
+            <input type="text" ng-model="ess_signup.city" name"city" ng-class="{'warn':ess_signup.city == '' || ess_signup.city == undefined}" required/>
+        </div>
+        <div>
+            <label>County:</label>
+            <input type="text" ng-model="ess_signup.county" name"county" ng-class="{'warn':ess_signup.county == '' || ess_signup.county == undefined}" required/>
+        </div>
+        <div>
+            <label>Postcode:</label>
+            <input type="text" ng-model="ess_signup.postcode" name"postcode" ng-class="{'warn':ess_signup.postcode == '' || ess_signup.postcode == undefined}" required/>
+        </div>
+        <div>
+            <label>Bank Name:</label>
+            <input type="text" ng-model="ess_signup.bank_name" name"bank_name" ng-class="{'warn':ess_signup.bank_name == '' || ess_signup.bank_name == undefined}" required/>
+        </div>
+        <div>
+            <label>Bank Holder Name:</label>
+            <input type="text" ng-model="ess_signup.bank_holder_name" name"bank_holder_name" ng-class="{'warn':ess_signup.bank_holder_name == '' || ess_signup.bank_holder_name == undefined}" required/>
+        </div>
+        <div>
+            <label>Account No:</label>
+            <input type="text" ng-model="ess_signup.account_no" name"account_no" ng-class="{'warn':ess_signup.account_no == '' || ess_signup.account_no == undefined}" required/>
+        </div>
+        <div>
+            <label>Sort Code:</label>
+            <input type="text" ng-model="ess_signup.sort_code" name"sort_code" ng-class="{'warn':ess_signup.sort_code == '' || ess_signup.sort_code == undefined}" required/>
+        </div>
+        <div>
+            <input type="submit" value="submit" ng-disabled="essAmendForm.$invalid"/>
+        </div>
+    </form>
+</div>

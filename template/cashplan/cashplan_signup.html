@@ -1,0 +1,79 @@
+<h3>Cashplan Cover Signup</h3>
+
+<div ng-if="cashplan_signup">
+    You have already signed up: 
+    Who: <b>{{who_type(cashplan_signup.who)  | currency:"£":2}}</b>,  
+    Cover Level: <b>{{cashplan_signup.cover_level | capitalize}}</b>,  
+    Gross Cost: <b>{{cashplan_signup.gross_cost | currency:"£":2}}</b>, 
+    Date: <b>{{cashplan_signup.submitted | date:'hh:mma - dd/MM/yyyy'}}</b>, 
+    Status: <b>{{status_type(cashplan_signup.status) | capitalize}}</b>
+</div>
+
+<div class="signup">
+    <div class="signup_container">
+        <div class="container">
+            <h4>Personal Detail:</h4>
+            <div class="detail">
+                <label>Current Cover:</label>
+                <div class="cost">
+                    Who: {{who_type(cashplan.data.cashplan_list[0].who)}}
+                </div>
+                <div class="cost">
+                    Cover Level: {{cashplan.data.cashplan_list[0].cover_level | capitalize}}
+                </div>
+                <div class="cost">
+                    Total: {{cashplan.data.cashplan_list[0].gross_cost | currency:"£":2}}
+                </div>
+            </div>
+            <div class="detail">
+                <label>Premium Cover:</label>
+                <div class="cost">
+                    Who: {{who_type(cashplan.data.cashplan_list[0].premium_who)}}
+                </div>
+                <div class="cost">
+                    Cover Level: {{cashplan.data.cashplan_list[0].premium_cover_level | capitalize}}
+                </div>
+                <div class="cost">
+                    Total: {{cashplan.data.cashplan_list[0].premium_core | currency:"£":2}}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h4>Select Who:</h4>
+            <div class="number" 
+                 ng-class="{'highlight': highlight_who_selected == $index}"
+                 ng-repeat="(key, value) in rates" 
+                 ng-click="select_who(key, value, $index)">
+                {{who_type(key)}}
+            </div>
+        </div>
+        <div class="container">
+            <h4>Select Cover Level:</h4>
+            <div class="number" 
+                 ng-class="{'highlight': highlight_cover_level_selected == $index}"
+                 ng-repeat="(key, value) in cover_level" 
+                 ng-click="select_cover_level(key, value, $index)">
+                {{key | capitalize}}
+            </div>
+        </div>
+        <div class="container" ng-if="gross_cost >= 0">
+            <h4>Total cost:</h4>
+            <div class="cost">
+                Who:         {{who_type(selected_who)}}<br/>
+                Cover Level: {{selected_cover_level | capitalize}}<br/>
+                Total:      {{gross_cost | currency:"£":2}}<br/>
+            </div>
+            <div class="warn" ng-if="total_cic_cover > cap">
+                You have been capped to {{cap | currency:"£":2}}
+            </div>
+        </div>
+        <div class="container" ng-if="selected_who && selected_cover_level && (selected_who != premium_who || selected_cover_level != premium_cover_level)">
+            <input type="submit" value="Apply" ng-click="submit()"/>
+        </div><br>
+        <div class="container" ng-if="selected_who && selected_cover_level && selected_who == premium_who && selected_cover_level == premium_cover_level">
+            You already have this cover....
+        </div>
+    </div>
+</div>
+
+            

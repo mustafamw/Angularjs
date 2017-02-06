@@ -1,0 +1,34 @@
+<h3>Child Care Voucher Signup</h3>
+<div class="ccv_signup">
+    <form ng-submit="ccv_signup_submit(ccv_signup)">
+        <div>
+            <label>State your contribution</label>
+            <input type="text" 
+                   value="{{max_contribution}}" 
+                   ng-model="ccv_signup.contribution" 
+                   ng-init="ccv_signup.contribution = 0"
+                   ng-keydown="contribution(ccv_signup.contribution)"
+				   ng-class="{'warn':ccv_signup.contribution > max_contribution}"
+                   format-currency="number"
+                   type="text" 
+				   placeholder="£0.00" >
+            <span>Minimum: £0.00 and Maximum: {{max_contribution | currency:"£":2}} </span>
+        </div>
+        <div>
+            <label>Comment:</label>
+            <textarea ng-model="ccv_signup.comment"></textarea>
+        </div>
+        <div>
+            I confirm that i have read terms and conditions <input type="checkbox" ng-model="checked" ng-init="checked=false"/>
+        </div>
+        <div ng-if="right_side_details.field_missing">
+            Your employee self service details is missing, <a href="#/ess">Click here</a> to amend employee service detail
+        </div>
+        <div ng-if="!right_side_details.field_missing">
+            Please check your detail are correct <a href="#/ess">Click here</a> to amend employee service detail
+        </div>
+        <div ng-if="!right_side_details.field_missing && ccv_signup.contribution <= max_contribution && checked">
+            <input type="submit" value="Submit"/>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+<h3>Voucher Deals</h3>
+<div class="search_container">
+	<input type="text" ng-model="search"/>
+	<select id="categoryOption" ng-model="voucher_category">
+	    <option value="" ng-selected="categoryselected == ''">Category:</option>
+	    <option ng-repeat="category in categories" value="{{category}}">
+	      {{category}}
+	    </option>
+	</select>
+</div>
+
+<div class="offer_types">
+	<div class="listtypes"  ng-click="select_offer_type('')" ng-class="{active: '' == offer_type}">
+		<div class="logo"><img ng-src="http://sensatejournal.com//wp-content/themes/sensate/images/icon_all.png"/></div>
+		<span>All</span>
+	</div>
+	<div class="listtypes"  ng-repeat="type in types" ng-click="select_offer_type(type.type)" ng-class="{active: type.type == offer_type}"> 
+		<div class="logo"><img ng-src="{{type.image}}"/></div>
+		<span>{{type.type}}</span>
+	</div>
+</div>
+
+<div class="offer_voucher_container">
+	<div ng-repeat="voucher in vouchers | filter:{name:search, 
+										  categories:voucher_category, 
+										  offer_type:offer_type}  | orderBy:['-special', 'promoted','name']" class="offer_voucher" ng-click="voucher_info(voucher)">
+		<div class="logoType"><img ng-src="{{types[voucher.offer_type].image}}" width="20px"/></div>	
+		<div ng-if="voucher.logo == ''" class="title">{{voucher.name}}</div>
+		<img ng-src="{{voucher.logo}}" err-src="https://www.futurerising.com/img/Preloader.gif" height="100%" class="logo"/>
+	</div>
+</div>
+
+<div id="offer_voucher_info" class="offer_voucher_info" ng-if="voucher_selected">
+	<div class="close"><img ng-src="http://www.clker.com/cliparts/n/h/o/B/H/L/exit-closed-symbol-hi.png" width="20px" ng-click="close()"/></div>
+	<div class="logoType"><img ng-src="{{types[voucher_selected.offer_type].image}}" width="20px"/></div>
+	<div class="title"><h3>{{voucher_selected.name}}</h3></div>
+	<div class="logo"><img ng-src="{{voucher_selected.logo}}" err-src="https://www.futurerising.com/img/Preloader.gif" ng-click="externalLink(voucher_selected.link)"/></div>
+	<div class="description"><p>{{voucher_selected.description}}</p></div>
+	<div class="category">
+		<input type="submit" ng-repeat="category in voucher_selected.categories" ng-model="category" ng-click="category_select(category)" value="{{category}}" ng-if="category != ''"/>
+	</div>
+	<div class="code"><p>{{voucher_selected.code}}</p></div>
+	<div class="expiry"><p>{{voucher_selected.end_date * 1000 | date:'dd/MM/yyyy'}}</p></div>
+	<div class="link"><a href="{{voucher_selected.link}}" ng-click="externalLink(voucher_selected.link)">Click Here</a></div>
+</div>

@@ -1,0 +1,73 @@
+<h3>Critical Illness Signup Info</h3>
+<div ng-repeat="cic_signups in cic_signup.data" ng-if="cic_signup.status == 200">
+    <table ng-repeat="list in cic_signups">
+        <thead>
+            <tr>
+                <th width="15%">
+                    Window Salary:
+                </th>
+                <th width="5%">
+                    Multiple:
+                </th>
+                <th width="15%">
+                    Gross Cost:
+                </th>
+                <th width="10%">
+                    Status:
+                </th>
+                <th width="20%" ng-if="list.status == 'accept' ||
+                                       list.status == 'withdraw' ||
+                                       list.status == 'cancel'">
+                    By
+                </th>
+                <th width="10%">
+                    Submitted:
+                </th>
+                <th width="15%" ng-if="list.status == 'pending'">
+                    Withdraw:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{list.window_salary | currency:"£":2}}
+                </td>
+                <td>
+                    {{list.multiple}}
+                </td>
+                <td>
+                    {{list.gross_cost | currency:"£":2}}
+                </td>
+                <td>
+                    {{status_type(list.status)}}
+                </td>
+                <td ng-if="list.status == 'accept' ||
+                           list.status == 'withdraw' ||
+                           list.status == 'cancel'">
+                    <span ng-repeat="manager in  list.manager">
+                        {{manager | capitalize}}{{$last ? '' : ' '}}
+                    </span>
+                    <span ng-if="list.manager.firstname == '' && 
+                                list.manager.lastname == ''">
+                        You
+                    </span>
+                </td>
+                <td>
+                    {{list.submitted | date:'hh:mma - dd/MM/yyyy'}}
+                </td>
+                <td ng-if="list.status == 'pending'">
+                    <input type="submit" value="Withdraw" ng-click="cic_signup_withdraw(list)"/>
+                </td>
+            </tr>
+            <tr ng-if="pmi_signup.status == 404">
+                <td colspan="4">
+                    You have not signed up your pmi, <a href="#/pmi/signup">Click here</a> to signup
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="cic_signup.status != 200">
+    You have not made life signup...
+</div>

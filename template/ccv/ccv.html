@@ -1,0 +1,35 @@
+<h3>Child Care Voucher</h3>
+<div ng-if="ccv.status==200">
+<table>
+    <thead>
+        <tr>
+            <td>
+                Provider:
+            </td>
+            <td>
+                Contribution:
+            </td>
+            <td>
+                Protected Right:
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="ccv.status == 200">
+            <td>
+                {{ccv.data.ccv_list[0].provider_name}}
+            </td>
+            <td>
+                {{ccv.data.ccv_list[0].contribution | currency:"£":2}}
+            </td>
+            <td>
+                {{ccv.data.ccv_list[0].protected_rights}}
+            </td>
+        </tr>
+        <tr ng-if="ccv.status != 200">
+            <td colspan="3">
+                Currently you dont have critcal illness cover cover...
+            </td>
+        </tr>
+    </tbody>
+</table>

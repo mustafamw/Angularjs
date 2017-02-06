@@ -1,0 +1,46 @@
+<h3>Income Protection</h3>
+<table>
+    <thead>
+        <tr>
+            <td width="20%">
+                Window Salary:
+            </td>
+            <td width="20%">
+                Percent:
+            </td>
+            <td width="20%">
+                Total (Window Salary * Percent):
+            </td>
+            <td width="20%">
+                Term:
+            </td>
+            <td width="20%">
+                Gross Cost:
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="gip.status == 200">
+            <td>
+                {{gip.data.gip_list[0].window_salary | currency:"£":2}}
+            </td>
+            <td>
+                {{gip.data.gip_list[0].percentage}}%
+            </td>
+            <td>
+                {{gip.data.gip_list[0].window_salary * (gip.data.gip_list[0].percentage / 100) | currency:"£":2}}
+            </td>
+            <td>
+                {{payment_term_type(gip.data.gip_list[0].payment_term)}}
+            </td>
+            <td>
+                {{gip.data.gip_list[0].gross_cost | currency:"£":2}}
+            </td>
+        </tr>
+        <tr ng-if="gip.status != 200">
+            <td colspan="5">
+                Currently you dont have income protection cover...
+            </td>
+        </tr>
+    </tbody>
+</table>

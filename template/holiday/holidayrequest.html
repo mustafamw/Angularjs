@@ -1,0 +1,56 @@
+<h3>Booking Request:</h3>
+<table class="customtable">
+	<thead>
+		<tr>
+			<th>
+				Employee No:
+			</th>
+			<th>
+				Employee Name:
+			</th>
+			<th>
+				Start Date:
+			</th>
+			<th>
+				End Date:
+			</th>
+			<th>
+                Taken:
+			</th>
+			<th>
+                Action:
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="list in listHolidays | orderBy:'-created'" ng-if="listHolidays != ''">
+			<td>
+				{{list.user_id}}
+			</td>
+			<td>
+				<spam ng-repeat="name in list.employee">
+					{{name | capitalize}}{{$last ? '' : ' '}}
+				</span>
+			</td>
+			<td>
+				{{list.start_date | date:'dd/MM/yyyy'}}<span ng-if="list.start_halfday != 'false'"> - {{list.start_halfday | capitalize}}</span>
+			</td>
+			<td>
+				{{list.end_date | date:'dd/MM/yyyy'}}<span ng-if="list.end_halfday!= 'false'"> - {{list.end_halfday | capitalize}}</span>
+			</td>
+			<td>
+				{{list.taken}}{{list.allowance_type | capitalize}}(s)
+			</td>
+			<td>
+				<input type="button" value="Accept" ng-click="holiday_confirm(list, 4)"/>
+				<input type="button" value="Cancel" ng-click="holiday_confirm(list, 2)"/>
+			</td>
+		</tr>
+		<tr ng-if="listHolidays == '' || listHolidays == undefined">
+			<td colspan="6">
+				When booking is made it will appear on here....
+			</td>
+		</tr>
+	</tbody>
+	
+</table>

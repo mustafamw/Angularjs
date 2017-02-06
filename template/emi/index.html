@@ -1,0 +1,29 @@
+<h3>EMI Share</h3>
+<div class="form_details">
+    <form>
+        <div class="input_container">
+            <label>Preference shares for original shareholders @ time of valuation</label>
+            <div class="info">{{emi.preferenceshares | currency:"£":2}}</div>
+        </div>
+        <div class="input_container">
+            <label>Level of o/s preference share dividends (rate is 5%) @ time of valuation</label>
+            <input type="text" ng-model="emi.levelpreference" placeholder="£0.00" format="number" ng-keyup="emicaluculate()"/>
+        </div>
+        <div class="input_container">
+            <label>Assumed Valuation of Kimal</label>
+            <input type="text" placeholder="£0.00"  ng-model="emi.assumedvaluation"  format="number" ng-keyup="emicaluculate()"/>
+        </div>
+        <div class="input_container">
+            <label>Option price per share</label>
+            <div class="info">{{emi.optionprice | currency:"£":2}}</div>
+        </div>
+        <div class="input_container">
+            <label>Number of shares you hold options over</label>
+            <div class="info"> {{emi.numbershares}} </div>
+        </div>
+        <div class="input_container">
+            <label>Net Value (pre-tax) of your Options</label>
+            <div class="info"> {{emiCalculator.net_value | currency:"£":2}} </div>
+        </div>
+    </form>
+</div>

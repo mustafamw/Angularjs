@@ -1,0 +1,156 @@
+<h2>Holiday Timeline</h2>
+
+<div class="nav_menu">
+	<div class="nav_month">
+		<input type="button" ng-click="day_nav('minus')" class="pre_day"/>
+		<input type="button" ng-click="month_nav(1,preMonthVal,preYearVal)" class="pre_month"/>
+		<div class="month_info">{{month}} - {{year}}</div>
+		<input type="button" ng-click="month_nav(1,nextMonthVal,nextYearVal)" class="next_month"/>
+		<input type="button" ng-click="day_nav('add')" class="next_day"/>
+	</div>
+	<div class="select_option">
+		<select ng-init="selectedStatus = status_option[0]" 
+				ng-model="selectedStatus" 
+				ng-options="status for status in status_option"
+				ng-change="selectOption(selectedStatus)">
+		</select>
+		<select ng-model="selectedTeam" 
+				ng-options="team for team in team_option">
+				<option value="">Team</option>
+		</select>
+	</div>
+	<input type="submit" ng-click="today_nav()" value="Today"/>
+</div>
+<div id="calendar">
+	<ul class="timeline" width="100%">
+		<li class="usernameinfo">
+		</li>
+		<li ng-repeat="date in listDates">
+				<div>{{date.dayWeekShort | capitalize}}</div>
+		</li>
+	</ul>
+	<ul class="timeinfo" ng-repeat="detail in holidayDetail | filter:(!!selectedTeam || undefined) && {team: selectedTeam}"
+						 ng-mouseleave="mouse_touched(false)">
+		<li class="usernameinfo">
+			<span class="username" ng-repeat="name in detail.employee">
+				{{name | capitalize}}
+			</span>
+			<div class="remaining">
+				{{detail.allowance - totalHolidayBook[detail.user_id].totalTaken}}
+			</div>
+		</li>
+		<li  ng-repeat="date in listDates"
+			 ng-class="{'booked':checkHolidayBook(detail.user_id, date.dateFormat),
+			 			'weekends': date.dayWeekShort == 'sat' || date.dayWeekShort == 'sun',
+						'publicholidays' : publicHoliday[date.dateFormat],
+						'highlight' : highlight[detail.user_id][$index]}"
+			 ng-mousedown="mouse_touched(true); 
+			 			   getSelectedListDate($index, detail, date.dateFormat, checkHolidayBook(detail.user_id, date.dateFormat))"
+			 ng-mouseup="mouse_touched(false)"
+			 class="{{status_class[''+checkHolidayBook(detail.user_id, date.dateFormat).status+'']}}"
+			 ng-click="holidayBookInfo(checkHolidayBook(detail.user_id,date.dateFormat));
+			 		   getSelectedListDate($index, detail, date.dateFormat, checkHolidayBook(detail.user_id, date.dateFormat))"
+			 ng-mouseover="getSelectedListDate($index, detail, date.dateFormat, checkHolidayBook(detail.user_id, date.dateFormat))">
+			 <img src="./icons/halfdaymorning2.png" class="halfday" ng-if="checkHolidayBook(detail.user_id, date.dateFormat).start_date == date.dateFormat &&
+										  				   checkHolidayBook(detail.user_id, date.dateFormat).start_halfday == 'morning' ||
+														   checkHolidayBook(detail.user_id, date.dateFormat).end_date == date.dateFormat &&
+										  				   checkHolidayBook(detail.user_id, date.dateFormat).end_halfday == 'morning'"/>
+			 <img src="./icons/halfdayafternoon2.png" class="halfday" ng-if="checkHolidayBook(detail.user_id, date.dateFormat).start_date == date.dateFormat &&
+										  				   checkHolidayBook(detail.user_id, date.dateFormat).start_halfday == 'afternoon' ||
+														   checkHolidayBook(detail.user_id, date.dateFormat).end_date == date.dateFormat &&
+										  				   checkHolidayBook(detail.user_id, date.dateFormat).end_halfday == 'afternoon'"/>
+			{{date.dayNo}}
+		</li>
+	</ul>
+</div>
+<div id="holiday_list_info" class="holiday_list_info" ng-if="holiday_list_info_ctrl">
+	<div zingchart id="myChart" zc-json="myJson" zc-height=170 zc-width=170></div>
+	<h3 class="username">
+		<span ng-repeat="name in holiday_info.employee">
+			{{name | capitalize}}
+		</span>
+	</h3>
+	<div class="date_input">
+		<div id="container">
+			<label>Start Date:</label>
+			<input type="text" value="{{holiday_info.start_date | date:'dd/MM/yyyy'}}" readonly/>
+			<div class="half_day">
+				<img ng-src="./icons/halfdaymorning.png" ng-if="holiday_info.start_halfday == 'morning'"/>
+				<img ng-src="./icons/halfdaynoon.png" ng-if="holiday_info.start_halfday == 'afternoon'"/>
+			</div>
+		</div>
+		<div id="container" ng-if="holiday_info.start_date != holiday_info.end_date">
+			<label>End Date:</label>
+			<input type="text" value="{{holiday_info.end_date | date:'dd/MM/yyyy'}}" readonly/>
+			<div class="half_day">
+				<img ng-src="./icons/halfdaymorning.png" ng-if="holiday_info.end_halfday == 'morning'"/>
+				<img ng-src="./icons/halfdaynoon.png" ng-if="holiday_info.end_halfday == 'afternoon'"/>
+			</div>
+		</div>
+	</div>
+	<div class='confirm_btn' ng-if="holiday_info.status == 'pending'">
+		<input type='button' class='confirm_btn' value='Accept' ng-click="confirm_booking(4, holiday_info)"/>
+		<input type='button' class='cancel_btn' value='Reject' ng-click="confirm_booking(2, holiday_info)"/>
+	</div>
+	<div class='confirm_btn' ng-if="holiday_info.status == 'accept'">
+		<input type='button' class='cancel_btn' value='Reject' ng-click="confirm_booking(2, holiday_info)" style="width:98%"/>
+	</div>
+</div>
+
+<div ng-if="holiday_book_ctrl == true" class="booking_controller_info booking_container">
+	<h3>Holiday Request - 
+		{{user_id}}: <span ng-repeat="name in employee">
+			{{name | capitalize}}
+		</span>
+	</h3>
+	<div class="booking_container">
+		<div id="start">
+			<input id="calendar-start" 
+				type="text" 
+				pikaday="datePickerStart" 
+				ng-model="startDateModel" 
+				on-select="onStartPikadaySelect(pikaday)" 
+				format="DD/MM/YYYY" readonly>
+			<div id="start-half-day" class="half-day">
+				<select id="optnoon" 
+						ng-model="startNoon"
+						required ng-options='option.value as option.name for option in noonOptions'
+						ng-change="HalfDayOption('start', startNoon)"
+						ng-if="!optionDisable('start', startDateModel) && 
+							holidayTaken > 0">
+				</select>
+			</div>
+		</div>
+		<div id="end">
+			<input id="calendar-end" 
+				type="text" 
+				pikaday="datePickerEnd"  
+				ng-model="endDateModel" 
+				on-select="onEndPikadaySelect(pikaday)"  
+				format="DD/MM/YYYY" readonly/>
+			<div id="end-half-day" class="half-day">
+				<select id="optnoon" 
+						ng-model="endNoon"
+						ng-change="HalfDayOption('end', endNoon)"
+						required ng-options='option.value as option.name for option in noonOptions'
+						ng-if="!optionDisable('end', endDateModel) && 
+							holidayTaken > 0 &&
+							!(startDateModel >= endDateModel)">
+
+				</select>
+			</div>
+		</div>
+		<div id="holidaysubmit">
+			<input type="submit" value="Submit" id="submit" ng-if="holidayTaken > 0 && remaining >= 0" ng-click="submit_request()"/>
+		</div>
+		<div>
+			<div class="daysoff" ng-if="daysOff">
+				Days off: <span ng-repeat="days in daysOff">{{days | capitalize}}{{$last ? '' : ', '}}</span>
+			</div>
+			<div id="holidayTaken" ng-if="holidayTaken > 0">Days Taken: {{holidayTaken}}</div>
+			<div id="allowance" ng-if="allowance">Holiday Allowance: {{allowance}}{{allowance_type | capitalize}}(s)</div>
+			<div id="totalHolidayBooked" ng-if="totalDayTaken > 0">Total Holiday Booked: {{totalDayTaken}}</div>
+			<div id="remainingdays" ng-if="holidayTaken > 0">Remaining Days: {{remaining}}</div>
+		</div>
+	</div>
+</div>

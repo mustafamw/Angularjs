@@ -1,0 +1,70 @@
+<h3>Critical Illness Signup Cover</h3>
+<div ng-if="cic_signup">
+    You have already signed up: 
+    Window Salary: <b>{{cic_signup.window_salary  | currency:"£":2}}</b>,  
+    Multiple: <b>{{cic_signup.multiple}}x</b>,  
+    Gross Cost: <b>{{cic_signup.gross_cost | currency:"£":2}}</b>, 
+    Date: <b>{{cic_signup.submitted | date:'hh:mma - dd/MM/yyyy'}}</b>, 
+    Status: <b>{{status_type(cic_signup.status) | capitalize}}</b>
+</div>
+<div class="signup">
+    <div class="signup_container">
+        <div class="container">
+            <h4>Personal Detail:</h4>
+            <div class="detail">
+                <label>Salary</label>
+                <div class="salary">
+                    {{salary | currency:"£":2}}
+                </div>
+            </div>
+            <div class="detail">
+                <label>Date of birth/Age:</label>
+                <div class="dob">
+                    {{dob | date:'dd/MM/yyyy'}} (Age {{age}})
+                </div>
+            </div>
+            <div class="detail">
+                <label>Current Cover:</label>
+                <div class="cost">
+                    Window Salary: {{window_salary | currency:"£":2}}
+                </div>
+                <div class="cost">
+                    Multiple: {{current_multiple}}x
+                </div>
+                <div class="cost">
+                    Total: {{window_salary * current_multiple | currency:"£":2}}
+                </div>
+            </div>
+        </div>
+        <div class="container" ng-if="cic_multiple != ''">
+            <h4>Select Multiple:</h4>
+            <div class="number" 
+                 ng-class="{'highlight': highlight_multiple_selected == $index}"
+                 ng-repeat="multiple in cic_multiple" 
+                 ng-click="select_multiple(multiple, $index)">
+                {{multiple}}x
+            </div>
+        </div>
+        <div class="container" ng-if="selected_multiple">
+            <h4>Total cost:</h4>
+            <div class="cost">
+                Salary: {{salary | currency:"£":2}}<br/>
+                Multiple {{selected_multiple}}x<br/>
+                Total : {{total | currency:"£":2}}<br/>
+                Gross cost: {{gross_cost | currency:"£":2}}
+            </div>
+            <div class="warn" ng-if="total_cic_cover > cap">
+                You have been capped to {{cap | currency:"£":2}}
+            </div>
+        </div>
+
+        <div class="container" ng-if="selected_multiple && salary != window_salary">
+            <input type="submit" value="Apply" ng-click="submit()"/>
+        </div>
+        <div class="container" ng-if="cic_signup && salary == window_salary && multiple == cic_signup.multiple">
+            You already have this cover....
+        </div>
+    </div>
+</div>
+
+            

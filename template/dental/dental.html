@@ -1,0 +1,34 @@
+<h3>Dental Cover</h3>
+<table>
+    <thead>
+        <tr>
+            <td>
+                Who:
+            </td>
+            <td>
+                Cover Level:
+            </td>
+            <td>
+                Gross Cost:
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="dental.status == 200">
+            <td>
+                {{who_type(dental.data.dental_list[0].who)}}
+            </td>
+            <td>
+                {{dental.data.dental_list[0].cover_level | capitalize}}
+            </td>
+            <td>
+                {{dental.data.dental_list[0].gross_cost | currency:"£":2}}
+            </td>
+        </tr>
+        <tr ng-if="dental.status != 200">
+            <td colspan="3">
+                Currently you dont have dental cover...
+            </td>
+        </tr>
+    </tbody>
+</table>

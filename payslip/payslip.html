@@ -1,0 +1,227 @@
+<h2>Payslip</h2>
+<div id="payslips" ng-if="payslip">
+	<!--<div class="companytitle"><img src="http://www.clipartbest.com/cliparts/jix/odo/jixodo4xT.png" width="100px"/></div>-->
+	<div class="departmentdetail">
+	<div class="pcontainer">
+		<div class="titlebg">
+			<div class="deptitle">Employee No</div>
+			<div class="deptitle">Employee Name</div>
+			<div class="deptitle">Process Date</div>
+			<div class="deptitle">NI No</div>
+		</div>
+	</div>
+	<div class="pcontainer">
+		<div class="depinfo">{{payslip.employee_number}}</div>
+		<div class="depinfo">{{payslip.employer_name}}</div>
+		<div class="depinfo">{{payslip.process_date}}</div>
+		<div class="depinfo">{{payslip.ni_number}}</div></div>
+	</div>
+	<div class="payment paymentmob">
+		<div class="titlemain">
+			<div class="titleinfo"><b>Department    -</b>  {{payslip.department}}</div>
+		</div>
+		<div class="titlebg">
+			<div class="title">Payments</div>
+			<div class="unit">Units</div>
+			<div class="rate">Rate</div>
+			<div class="gross">Amount</div>
+		</div>
+		<div class="pcontainer">
+			<div class="paymenttitle">Salary</div>
+			<div class="paymentunit">1.0</div>
+			<div class="paymentrate">{{payslip.payment}}</div>
+			<div class="paymentgross">{{payslip.payment}}</div>
+		</div>
+		<!--  
+		<div class="pcontainer">
+			<div class="paymenttitle">$Payment3</div>
+			<div class="paymentunit">1.00</div>
+			<div class="paymentrate">$GrossP3</div>
+			<div class="paymentgross">$GrossP3</div>
+		</div>
+		<div class="pcontainer">
+			<div class="paymenttitle">$Payment4</div>
+			<div class="paymentunit">1.00</div>
+			<div class="paymentrate">$GrossP4</div>
+			<div class="paymentgross">$GrossP4</div>
+		</div>
+		<div class="pcontainer">
+			<div class="paymenttitle">$Payment2</div>
+			<div class="paymentunit">1.00</div>
+			<div class="paymentrate">$GrossP2</div>
+			<div class="paymentgross">$GrossP2</div>
+		</div>
+		<div class="pcontainer">
+			<div class="paymenttitle">$Payment5</div>
+			<div class="paymentunit">1.00</div>
+			<div class="paymentrate">$GrossP5</div>
+			<div class="paymentgross">$GrossP5</div>
+		</div>
+		<div class="pcontainer">
+			<div class="paymenttitle">$Payment6</div>
+			<div class="paymentunit">1.00</div>
+			<div class="paymentrate">$GrossP6</div>
+			<div class="paymentgross">$GrossP6</div>
+		</div>
+		<div class="pcontainer">
+			<div class="paymenttitle">$Payment7</div>
+			<div class="paymentunit">1.00</div>
+			<div class="paymentrate">$GrossP7</div>
+			<div class="paymentgross">$GrossP6</div>
+		</div>
+		<div class="pcontainer">
+			<div class="paymenttitle">$Payment8</div>
+			<div class="paymentunit">1.00</div>
+			<div class="paymentrate">$GrossP8</div>
+			<div class="paymentgross">$GrossP6</div>
+		</div>
+		-->
+		<div style="position:absolute; bottom: 0px; width: 100%;">
+			<div class="pcontainer" ng-if="payslip.ssp != 0">
+				<div class="paymenttitle">SSP</div>
+				<div class="paymentunit"></div>
+				<div class="paymentrate"></div>
+				<div class="paymentgross">$SSP</div>
+			</div>
+			<div class="pcontainer" ng-if="payslip.smp_spp != 0">
+				<div class="paymenttitle">SMP/SSP</div>
+				<div class="paymentunit"> </div>
+				<div class="paymentrate"> </div>
+				<div class="paymentgross">$SMPSPP</div>
+			</div>
+			<div class="pcontainer" ng-if="payslip.payslip.sac_pension != 0">
+				<div class="paymenttitle">Salary Sacrifice</div>
+				<div class="paymentunit"></div>
+				<div class="paymentrate"></div>
+				<div class="paymentgross">-{{payslip.sac_pension}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="deduction d1">
+		<div class="titlemain">
+			<div class="titleinfo"><b>Payment Method    -</b> {{payslip.payment_method}}</div>
+		</div>
+	    <div class="titlebg">
+	    	<div class="yrtodate" style="width:155px; margin-left: 10px; text-align:left;">Deductions</div>
+	    	<div class="yrtodate" style="width:88px; text-align:right;">Amount</div>
+	    </div>
+	    <div class="pcontainer" >
+	    	<div class="deductiontitle">PAYE</div>
+	    	<div class="deductionrate">{{payslip.paye}}</div>
+	    </div>
+	    <div class="pcontainer">
+	    	<div class="deductiontitle">National Insurance</div>
+	    	<div class="deductionrate">{{payslip.ee_national_insurance}}</div>
+	    </div>
+		<div style="margin-top:20px;">
+			<div class="pcontainer">
+				<div class="deductiontitle">Er Pension</div>
+				<div class="deductionrate">{{payslip.employer_pension}}</div>
+			</div>
+			<!--
+			<div class="pcontainer">
+				<div class="deductiontitle">Student Loan</div>
+				<div class="deductionrate">$StudentLoan</div>
+			</div>
+			-->
+			<div class="pcontainer" ng-if="payslip.tax_credit != 0">
+				<div class="deductiontitle">Tax Credit</div>
+				<div class="deductionrate">{{payslip.tax_credit}}</div>
+			</div>
+			<div class="pcontainer" ng-if="payslip.admin_fee != 0">
+				<div class="deductiontitle">Admin Fee</div>
+				<div class="deductionrate">{{payslip.admin_fee}}</div>
+			</div>
+			<div class="pcontainer" ng-if="payslip.attachment_of_earnings != 0">
+				<div class="deductiontitle">Attachment of Earnings</div>
+				<div class="deductionrate">{{payslip.attachment_of_earnings}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="deduction d2">
+		<div class="titlemain">
+			<div class="titleinfo"><b>Payment Period    -</b> {{payslip.payment_period}}</div>
+		</div>
+	    <div class="yrtodate">Year to date</div>
+		<div style="position:relative;">
+			<div class="pcontainer">
+				<div class="deductiontitle">Total Gross Pay TD</div>
+				<div class="deductionrate">{{payslip.total_gross_tax_td}}</div>
+			</div>
+			<div class="pcontainer">
+				<div class="deductiontitle">Gross for Tax TD</div>
+				<div class="deductionrate">{{payslip.gross_for_tax_td}}</div>
+			</div>
+			<div class="pcontainer">
+				<div class="deductiontitle">Tax Paid TD</div>
+				<div class="deductionrate">{{payslip.tax_paid_td}}</div>
+			</div>
+	        <div class="pcontainer">
+	        	<div class="deductiontitle">Earnings For NI TD</div>
+	        	<div class="deductionrate">{{payslip.earnings_for_ni_td}}</div>
+	        </div>
+	        <div class="pcontainer">
+	        	<div class="deductiontitle">National Insurance TD</div>
+	        	<div class="deductionrate">{{payslip.ni_td}}</div>
+	        </div>
+			<div style="clear:both;"></div>
+		</div>
+		<div style="position:relative; margin-top:10px;">
+			<!--
+			<div class="pcontainer">
+				<div class="deductiontitle">Student Loan TD</div>
+				<div class="deductionrate">$StudentLoanTd</div>
+			</div>
+			-->
+			<div class="pcontainer">
+				<div class="deductiontitle">Er Pension TD</div>
+				<div class="deductionrate">{{payslip.employer_pension_td}}</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div style="position:absolute; bottom:0px; width:100%;">
+		    <div class="pcontainer" ng-if="payslip.tax_credit_td != 0">
+		    	<div class="deductiontitle">Tax Credit TD</div>
+		    	<div class="deductionrate">{{payslip.tax_credit_td}}</div>
+		    </div>
+			<div class="pcontainer">
+				<div class="deductiontitle">Earning For NI</div>
+				<div class="deductionrate">{{payslip.earning_for_ni}}</div>
+			</div>
+			<div class="pcontainer">
+				<div class="deductiontitle">Gross For Tax</div>
+				<div class="deductionrate">{{payslip.gross_for_tax}}</div>
+			</div>
+			<div class="pcontainer">
+				<div class="deductiontitle">Total Gross Pay</div>
+				<div class="deductionrate">{{payslip.total_payment}}</div>
+			</div>        
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div class="employeedetail">
+		<div class="pcontainer">
+		    <div class="titlebg">
+		    	<div class="empltitle" style="width:33%;">Company Name</div>
+			<div class="empltitle">Tax Code</div>
+			<div class="empltitle">Tax Week</div>
+			<div class="empltitle">NI Code</div>
+		    </div>
+		</div>
+	    <div class="pcontainer">
+		    <div class="emplinfo" style="width:33%;">{{payslip.employer_name}}</div>
+		    <div class="emplinfo">{{payslip.tax_code}}</div>
+		    <div class="emplinfo">{{payslip.tax_week}}</div>
+		    <div class="emplinfo">{{payslip.ni_code}}</div>
+		</div>
+	</div>
+	<div class="netpaydetail">
+	    <div class="pcontainer">
+			<div class="empltitle">Net Pay</div>
+	    </div>
+	    <div class="pcontainer">
+			<div class="emplinfo">£{{payslip.net_pay}}</div>
+	    </div>
+	</div>
+	<div style="clear:both;"></div>               
+</div>

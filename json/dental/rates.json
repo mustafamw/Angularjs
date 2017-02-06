@@ -1,0 +1,18 @@
+{
+    "who" : 
+    {
+        "SELF": 1,
+        "SELF_AND_CHILDREN": 1.6,
+        "SELF_AND_PARTNER": 1.86,
+        "FAMILY": 2.49
+    },
+    "cover_level":
+    {
+        "KEY": 54,
+        "ELEMENTARY": 112.8,
+        "ESSENTIAL": 182.4,
+        "ESSENTIAL_PLUS": 235.2,
+        "EXTENSIVE": 280.2,
+        "EXTENSIVE_PLUS": 357.6
+    }
+}

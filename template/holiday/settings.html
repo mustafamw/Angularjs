@@ -1,0 +1,75 @@
+<h2>Booking Settings</h2>
+<div class="search_container">
+	<input type="text" ng-model="search"/>
+	
+	<select ng-model="selectedTeam" 
+		    ng-options="team for team in team_option">
+		    <option value="">Team</option>
+	</select>
+</div>
+<form>
+<table class="holiday">
+	<thead>
+		<tr>
+			<th>
+				Employee No:
+			</th>
+			<th>
+				Username:
+			</th>
+			<th>
+				Position:
+			</th>
+			<th>
+				Days off:
+			</th>
+			<th>
+				Allowance:
+			</th>
+            <th>
+				Type:
+			</th>
+            <th>
+                Update:
+            </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr alt="{{i = $index}}" ng-repeat="detail in details | filter:(!!selectedTeam || undefined) && {team: selectedTeam}">
+			<td>
+				{{detail.user_id}}
+			</td>
+			<td>
+				<span ng-repeat="name in detail.employee">
+					{{name | capitalize}}{{$last ? '' : ' '}}
+				</span>
+			</td>
+			<td>
+				{{detail.team | capitalize}}
+			</td>
+			<td>
+				<span class="weekdays" ng-repeat="(key, value) in weekdays">
+					<input type="checkbox" ng-model="detail.daysoffoption[value].selected"
+										   ng-init="detail.daysoffoption[value].selected = checkdaysoff(value, detail.days_off)"
+										   ng-checked="checkdaysoff(value, detail.days_off)"/>{{key | capitalize}}<br>
+				</span>
+			</td>
+			<td>
+				<input type="number" ng-model="detail.allowance" value="{{detail.allowance}}" ng-keypress="number_only(this, dayselected)"/><br>
+			</td>
+            <td>
+                <span ng-repeat="type in allowance_type">
+                    <input type="radio" 
+                           name="allowance_type_{{i}}"  
+                           value="{{type}}"
+                           ng-model="detail.allowance_type"
+                           ng-selected="type == detail.allowance_type"
+                           value="type"/>{{type | capitalize}}
+                </span>
+            </td>
+            <td>
+                <input type="submit" ng-click="submit_details(detail)" value="Update"/>
+            </td>
+		</tr>
+	</tbody>
+</table>

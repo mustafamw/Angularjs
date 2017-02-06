@@ -1,0 +1,80 @@
+.booking_container
+{
+    position: relative;
+    width: 400px;
+    margin: 0 auto;
+    float: left;
+}
+
+.booking_container input
+{
+    margin-bottom: 10px;
+}
+.booking_container input[type=text]
+{
+    font-size: 16px;
+    width: 100%;
+    padding: 2%;
+    cursor: pointer;
+}
+.booking_container input[type=submit]
+{
+    font-size: 16px;
+    width: 100%;
+    padding: 2%;
+    border: none;
+}
+
+.booking_container #start-half-day #optnoon,
+.booking_container #end-half-day #optnoon
+{
+    float: right;
+}
+
+#bookingconfirm
+{
+    display: none;
+    position: fixed;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #f6f6f6 100%);
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f1f1f1 50%,#f6f6f6 100%);
+    background: linear-gradient(to bottom, #ffffff 0%,#f1f1f1 50%,#f6f6f6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 150px;
+    box-shadow: 5px 5px 5px #B7B7B7;
+    border: 2px solid grey;
+    padding: 10px;
+}
+#bookingconfirm #link_button
+{
+    position: absolute;
+    /* background: red; */
+    left: 0px;
+    right: 0px;
+    bottom: 10px;
+    margin: 0 auto;
+    text-align: center;
+}
+#bookingconfirm #link_button input
+{
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 5px;
+    height: 30px;
+    width: 170px;
+    margin: 4px;
+    border: none;
+}
+#bookingconfirm #link_button .accept
+{
+    background: #55BB00;
+}
+#bookingconfirm #link_button .cancel
+{
+    background: red;   
+}

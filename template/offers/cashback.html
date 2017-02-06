@@ -1,0 +1,44 @@
+<h3>Cashback Offers</h3>
+<div class="search_container">
+	<input type="text" ng-model="search"/>
+	
+	<select id="categoryOption" ng-model="cashback_category">
+	    <option  value="" ng-selected="categoryselected == category">Category:</option>
+	    <option  ng-repeat="category in categories" value="{{category}}">
+	      {{category}}
+	    </option>
+	 </select>
+</div>
+
+<div class="offer_types">
+	<div class="listtypes"  ng-click="order_type('highest'); predicate = '-aCommissionValue'; reverse = !reverse;" ng-class="{orderby: 'highest' == order_active}">
+		<div class="logo"><img ng-src="http://www.free-icons-download.net/images/up-arrow-down-arrow-icon-84290.png"/></div>
+		<span>High/Low</span>
+	</div>
+	<div class="listtypes"  ng-click="order_type('lowest'); predicate = ''; reverse = false;" ng-class="{orderBy: 'lowest' == order_active}">
+		<div class="logo"><img ng-src="http://simpleicon.com/wp-content/uploads/undo-5.png"/></div>
+		<span>Normal</span>
+	</div>
+</div>
+
+
+<div class="offer_cashback_container">
+	<div ng-repeat="cashback in cashback | filter:{'name':search, 'categories':cashback_category} | orderBy:predicate:reverse" class="offer_cashback" ng-click="cashback_info(cashback)">	
+		<div class='discount_short'>{{(cashback.commission_short)}}</div>
+	    <img ng-src="http://musty.my-benefitsinfo.co.uk/offersAPI/cashback/{{cashback.logo}}" width="200px" class="logo"/>
+	</div>
+</div>
+
+
+<div id="offer_cashback_info" class="offer_cashback_info" ng-if="cashback_selected">
+	<div class="close"><img ng-src="http://www.clker.com/cliparts/n/h/o/B/H/L/exit-closed-symbol-hi.png" width="20px" ng-click="close()"/></div>
+	<div class="logoType"><img ng-src="" width="20px"/></div>
+	<div class="title"><h3>{{cashback_selected.name}}</h3></div>
+	<div class="logo"><img ng-src="http://musty.my-benefitsinfo.co.uk/offersAPI/cashback/{{cashback_selected.logo}}" err-src="https://www.futurerising.com/img/Preloader.gif" ng-click="externalLink(cashback_selected.click_through)"/></div>
+	<div class="discount"><p>{{(cashback_selected.commission_short)}}</p></div>
+	<div class="description"><p>{{(cashback_selected.description)}}</p></div>
+	<div class="category">
+		<input type="submit" ng-repeat="category in cashback_selected.categories" ng-model="category" ng-click="category_select(category)" value="{{category}}" ng-if="category != ''"/>
+	</div>
+	<div class="link"><a href="{{cashback_selected.click_through}}" ng-click="externalLink(cashback_selected.click_through)">Click Here</a></div>
+</div>

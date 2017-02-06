@@ -1,0 +1,85 @@
+<div class="trs_chart">
+    <div class="chart">
+        <canvas id="doughnut" 
+                class="chart chart-doughnut"
+                chart-data="data" 
+                chart-labels="labels" 
+                chart-colors="colors">
+        </canvas> 
+    </div>
+    <div class="info">
+        <h3>YOUR</h3>
+        <h3>TOTAL REWARDS STATEMENT</h3>
+        <p>@ 1st November 2016</p>
+        <div class="fullname"><h3>{{firstname}} {{lastname}}</h3></div>
+    </div>
+</div>
+<table class="trs">
+    <thead>
+        <tr>
+            <th>YOUR BENEFITS</th>
+            <th>DETAILS</th>
+            <th>ANNUAL VALUE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="{{key}}" ng-repeat="(key, value) in trs" ng-if="value | isEmpty">
+        <td class="{{key}}"><b>{{key | capitalize}}</b></td>
+            <td>
+                <div ng-repeat="data in value">
+                    <div ng-if="!data.link" class="title">{{data.title}}</div>
+                    <div ng-if="data.link">
+                        <a href="{{data.link}}" target="_parent">{{data.title}} 
+                        </a></div>
+                    <span ng-if="data.tax_saved">
+                        <div>
+                            <b class="benefits">Benefit: Tax saved</b>
+                        </div>
+                    </span>
+                    <span ng-if="data.multiple">
+                        <div>
+                            <b class="benefits">Benefit: {{data.multiple}} x Salary</b>
+                        </div>
+                    </span>
+                    <span ng-if="data.cover">
+                        <div>
+                            <b class="benefits">Benefit: {{data.cover | currency:"£":2}}</b>
+                        </div>
+                    </span>
+                    <span ng-if="data.percent">
+                        <div>
+                            <b class="benefits">Benefit: {{data.percent}}% employer contribution</b>
+                        </div>
+                    </span>
+                    <span ng-if="data.provider">
+                        <div>
+                            <i><b>Provider: {{data.provider}}</b></i>
+                        </div>
+                    </span>
+                </div>
+            </td>
+            <td class="benefits_value">
+                <div ng-repeat="data in value" ng-class="{'expand-a':data.provider, 'expand-b':data.tax_saved, 'expand-c':data.provider&&data.tax_saved}">
+                    {{data.value | currency:"£":2}}
+                    <span ng-if="data.info">
+                        <div>
+                            <i><b>{{data.info}}</b></i>
+                        </div>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr class="total">
+            <td>
+            <td>
+            <td style="text-align:center; 
+                        margin-right: 10px; 
+                        position: relative;
+                        right: 8px;
+                        top: -20px;">
+                {{total_rewards | currency:"£":2}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

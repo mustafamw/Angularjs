@@ -1,0 +1,16 @@
+{
+    "SELF_AND_CHILDREN": 
+    {
+        "BRONZE": 4.00,
+        "SILVER": 9.01,
+        "GOLD": 12.87,
+        "PLATINUM": 16.65
+    },
+    "SELF_AND_PARTNER": 
+    {
+        "BRONZE": 8.89,
+        "SILVER": 18.41,
+        "GOLD": 25.74,
+        "PLATINUM": 32.92
+    }
+}

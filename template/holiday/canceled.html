@@ -1,0 +1,55 @@
+<h3>Holidays Canceled:</h3>
+<table class="customtable">
+	<thead>
+		<tr>
+			<th width="20%">
+				Start Date:
+			</th>
+			<th width="20%">
+				End Date:
+			</th>
+			<th width="10%">
+				Taken:
+			</th>
+			<th width="10%">
+				Submitted:
+			</th>
+			<th width="10%">
+				Status:
+			</th>
+            <th width="20%">
+                By:
+            </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="list in listHolidays | orderBy:'-created'" ng-if="listHolidays != ''">
+			<td>
+				{{list.start_date | date:'dd/MM/yyyy'}}<span ng-if="list.start_halfday != 'false'"> - {{list.start_halfday | capitalize}}</span>
+			</td>
+			<td>
+				{{list.end_date | date:'dd/MM/yyyy'}}<span ng-if="list.end_halfday!= 'false'"> - {{list.end_halfday | capitalize}}</span>
+			</td>
+			<td>
+				{{list.taken}}{{list.allowance_type | capitalize}}(s)
+			</td>
+			<td>
+				{{list.submitted | date:'dd/MM/yyyy'}}
+			</td>
+			<td>
+				{{list.status | capitalize}}
+			</td>
+            <td>
+                <span ng-if="list.manager.firstname == '' && list.manager.lastname == ''">You</span>
+                <span ng-repeat="manager in  list.manager" ng-if="list.manager.firstname && list.manager.lastname">
+					{{manager | capitalize}}{{$last ? '' : ' '}}
+                </span>
+            </td>
+		</tr>
+		<tr ng-if="listHolidays == '' || listHolidays == undefined">
+			<td colspan="6">
+				You have not made any booking ...
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,36 @@
+<h3>Wage check</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                User id:
+            </th>
+            <th>
+                Firstname:
+            </th>
+            <th>
+                Lastname:
+            </th>
+            <th>
+                Total Sacrifice:
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="wage_check in wage_check_list.data.wage_check_list" ng-if="wage_check_list.status == 200">
+            <td>
+                {{wage_check.user_id}}
+            </td>
+            <td>
+                {{wage_check.firstname | capitalize}}
+            </td>
+            <td>
+                {{wage_check.lastname | capitalize}}
+            </td>
+            <td>
+                {{wage_check.total_sacrificed | currency:"£":2}}
+            </td>
+        </tr>
+    </tbody>
+</table>

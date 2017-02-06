@@ -1,0 +1,198 @@
+.trs_chart
+{
+    position: relative;
+    white-space: nowrap;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.trs_chart .chart
+{
+    display: inline-block;
+    width: 50%;
+}
+.trs_chart .info
+{
+    vertical-align: top;
+    display: inline-block;
+    width: 40%;
+    padding-top: 4%;
+    margin-right: 10%;
+}
+.trs_chart .info h3
+{
+    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.trs_chart .info p
+{
+    text-align: center;
+}
+.trs_chart .info div.fullname
+{
+    text-align: center;
+}
+.trs_chart .info div.fullname h3
+{
+    margin-top: 50px;
+}
+
+table.trs 
+{
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2em;
+    border: none;
+}
+table.trs tr
+{
+	border-bottom: 10px solid transparent;
+    background: transparent;
+}
+
+table.trs td, 
+table.trs th 
+{
+    height: 30px;
+    transition: all 0.3s; /* Simple transition for hover effect */
+}
+
+table.trs th 
+{
+    /*background: #DFDFDF;*/
+    font-weight: bold;
+    text-align: center;
+}
+
+table.trs td
+{
+    text-align: center;
+}
+
+table.trs td.benefits_value
+{
+    text-align: right;
+}
+
+table.trs td.benefits_value div
+{
+    position: relative;
+    left: -70px;
+}
+
+table.trs td.remuneration
+{
+	border-left: 40px solid rgb(54,162,255);
+	color: black;
+}
+table.trs td.protection 
+{
+	border-left: 40px solid #38CE65;
+	color: black;
+    vertical-align: middle;
+}
+table.trs td.retirement
+{
+	border-left: 40px solid #CC4949;
+	color: black;
+    vertical-align: middle;
+}
+table.trs td.salary_sacrifice
+{
+	border-left: 40px solid rgb(255,206,86);
+	color: black;
+    vertical-align: middle;
+}
+
+table.trs .legend
+{
+    float: right;
+    margin-right: 11%;
+    margin-top: 3%;
+}
+
+table.trs .legend ul li
+{
+    display: block;
+    clear: both;
+}
+
+table.trs .legend ul li .key
+{
+    float: left;
+}
+
+table.trs .legend ul li .series
+{
+    width: 70px;
+    height: 18px;
+    float: left;
+    margin-bottom: 8px;
+    margin-right: 8px;
+}
+
+table.trs .legend ul li .series.remuneration 
+{
+    background: rgb(54,162,255);
+    color: black;
+}
+table.trs .legend ul li .series.protection
+{
+	background: rgb(0,255,0);
+	color: black;   
+}
+table.trs .legend ul li .series.retirement
+{
+    background: #9D86FF;
+	color: black;
+}
+table.trs .legend ul li .series.salary_sacrifice
+{
+  	background: rgb(255,206,86);
+	color: black;  
+}
+
+table.trs td .title
+{
+	color: #0772ba;
+}
+
+table.trs td a
+{
+	color: #0772ba;
+	text-decoration: none;
+}
+
+table.trs td i
+{ 
+	font-size: 12px;
+}
+
+table.trs td > div
+{
+    padding: 5px;
+}
+
+table.trs td > div.expand-a
+{
+    height: 35.5px;
+}
+table.trs td > div.expand-b
+{
+    height: 36px;
+}
+table.trs td > div.expand-c
+{
+    height: 52px;
+}
+table.trs tr.total
+{
+    font-weight: bold;
+    font-size: 20px;
+}
+table.trs b.benefits
+{
+    font-size: 12px;
+}

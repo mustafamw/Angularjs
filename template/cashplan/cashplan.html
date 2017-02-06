@@ -1,0 +1,34 @@
+<h3>Cashplan Cover</h3>
+<table>
+    <thead>
+        <tr>
+            <td>
+                Who:
+            </td>
+            <td>
+                Cover Level:
+            </td>
+            <td>
+                Gross Cost:
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="cashplan.status == 200">
+            <td>
+                {{who_type(cashplan.data.cashplan_list[0].who)}}
+            </td>
+            <td>
+                {{cashplan.data.cashplan_list[0].cover_level | capitalize}}
+            </td>
+            <td>
+                {{cashplan.data.cashplan_list[0].gross_cost | currency:"£":2}}
+            </td>
+        </tr>
+        <tr ng-if="cashplan.status != 200">
+            <td colspan="3">
+                Currently you dont have cashplan cover...
+            </td>
+        </tr>
+    </tbody>
+</table>

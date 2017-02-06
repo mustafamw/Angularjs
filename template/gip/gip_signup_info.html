@@ -1,0 +1,79 @@
+<h3>Gip Signup Info</h3>
+<div ng-repeat="gip_signups in gip_signup.data" ng-if="gip_signup.status == 200">
+    <table ng-repeat="list in gip_signups">
+        <thead>
+            <tr>
+                <th width="10%">
+                    Total (Window Salary * Percentage):
+                </th>
+                <th width="10%">
+                    Percentage:
+                </th>
+                <th width="10%">
+                    Gross Cost:
+                </th>
+                <th width="10%">
+                    Term:
+                </th>
+                <th width="10%">
+                    Status:
+                </th>
+                <th width="20%" ng-if="list.status == 'accept' ||
+                                       list.status == 'withdraw' ||
+                                       list.status == 'cancel'">
+                    By
+                </th>
+                <th width="10%">
+                    Submitted:
+                </th>
+                <th width="15%" ng-if="list.status == 'pending'">
+                    Withdraw:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{list.window_salary * (list.percentage / 100) | currency:"£":2}}
+                </td>
+                <td>
+                    {{list.percentage}}%
+                </td>
+                <td>
+                    {{list.gross_cost | currency:"£":2}}
+                </td>
+                <td>
+                    {{payment_term_type(list.payment_term)}}
+                </td>
+                <td>
+                    {{status_type(list.status)}}
+                </td>
+                <td ng-if="list.status == 'accept' ||
+                           list.status == 'withdraw' ||
+                           list.status == 'cancel'">
+                    <span ng-repeat="manager in  list.manager">
+                        {{manager | capitalize}}{{$last ? '' : ' '}}
+                    </span>
+                    <span ng-if="list.manager.firstname == '' && 
+                                list.manager.lastname == ''">
+                        You
+                    </span>
+                </td>
+                <td>
+                    {{list.submitted | date:'hh:mma - dd/MM/yyyy'}}
+                </td>
+                <td ng-if="list.status == 'pending'">
+                    <input type="submit" value="Withdraw" ng-click="gip_signup_withdraw(list)"/>
+                </td>
+            </tr>
+            <tr ng-if="pmi_signup.status == 404">
+                <td colspan="4">
+                    You have not signed up your pmi, <a href="#/pmi/signup">Click here</a> to signup
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="gip_signup.status != 200">
+    You have not made Gip signup...
+</div>

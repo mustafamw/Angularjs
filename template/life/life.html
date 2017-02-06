@@ -1,0 +1,40 @@
+<h3>Life Cover</h3>
+<table>
+    <thead>
+        <tr>
+            <td>
+                Window Salary:
+            </td>
+            <td>
+                Multiple:
+            </td>
+            <td>
+                Life Cover:
+            </td>
+            <td>
+                Gross Cost:
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-if="life.status == 200">
+            <td>
+                {{life.data.life_list[0].window_salary | currency:"£":2}}
+            </td>
+            <td>
+                {{life.data.life_list[0].flex_multiple}}x
+            </td>
+            <td>
+                {{life.data.life_list[0].window_salary * life.data.life_list[0].flex_multiple | currency:"£":2}}
+            </td>
+            <td>
+                {{life.data.life_list[0].gross_cost | currency:"£":2}}
+            </td>
+        </tr>
+        <tr ng-if="life.status != 200">
+            <td colspan="4">
+                Currently you dont have life cover...
+            </td>
+        </tr>
+    </tbody>
+</table>

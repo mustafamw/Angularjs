@@ -1,0 +1,49 @@
+<h3>Ctw Signup Request</h3>
+<table class="customtable">
+	<thead>
+		<tr>
+			<th>
+				Employee No:
+			</th>
+			<th>
+				Employee Name:
+			</th>
+			<th>
+				Gross Cost:
+			</th>
+			<th>
+                Submitted:
+			</th>
+			<th>
+                Action:
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="list in ctw_signup_list.data.ctw_signup_list | orderBy:'-submitted'" ng-if="ctw_signup_list.status == 200">
+			<td>
+				{{list.user_id}}
+			</td>
+			<td>
+				<spam ng-repeat="name in list.employee">
+					{{name | capitalize}}{{$last ? '' : ' '}}
+				</span>
+			</td>
+			<td>
+				{{list.gross_cost | currency:"£":2}}
+			</td>
+            <td>
+                {{list.submitted | date:'dd/MM/yyyy'}}
+            </td>
+			<td>
+				<input type="button" value="Accept" ng-click="ctw_signup_confirm(list, 'accept')"/>
+				<input type="button" value="Cancel" ng-click="ctw_signup_confirm(list, 'cancel')"/>
+			</td>
+		</tr>
+        <tr ng-if="ctw_signup_list.status == 404">
+			<td colspan="5">
+				Ctw scheme signup has not been made ...
+			</td>
+		</tr>
+	</tbody>
+</table>

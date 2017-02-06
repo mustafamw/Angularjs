@@ -1,0 +1,78 @@
+<h3>Income Protection Signup</h3>
+<div ng-if="life_signup">
+    You have already signed up: 
+    Window Salary: <b>{{life_signup.window_salary  | currency:"£":2}}</b>,  
+    Multiple: <b>{{life_signup.multiple}}x</b>,  
+    Gross Cost: <b>{{life_signup.gross_cost | currency:"£":2}}</b>, 
+    Date: <b>{{life_signup.submitted | date:'hh:mma - dd/MM/yyyy'}}</b>, 
+    Status: <b>{{status_type(life_signup.status) | capitalize}}</b>
+</div>
+<div class="signup">
+    <div class="signup_container">
+        <div class="container">
+            <h4>Personal Detail:</h4>
+            <div class="detail">
+                <label>Salary</label>
+                <div class="salary">
+                    {{salary | currency:"£":2}}
+                </div>
+            </div>
+            <div class="detail">
+                <label>Date of birth/Age:</label>
+                <div class="dob">
+                    {{dob | date:'dd/MM/yyyy'}} (Age {{age}})
+                </div>
+            </div>
+            <div class="detail">
+                <label>Current Cover:</label>
+                <div class="cost">
+                    Window Salary: {{window_salary | currency:"£":2}}
+                </div>
+                <div class="cost">
+                    Percentage: {{current_percentage}}%
+                </div>
+                <div class="cost">
+                    Total: {{window_salary * (current_percentage / 100) | currency:"£":2}}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h4>Select Percentage:</h4>
+            <div class="number" 
+                 ng-class="{'highlight': highlight_percentage_selected == $index}"
+                 ng-repeat="percent in percentage" 
+                 ng-click="select_percentage(percent, $index)">
+                {{percent}}%
+            </div>
+        </div>
+        <div class="container">
+            <h4>Select Term:</h4>
+            <div class="number" 
+                 ng-class="{'highlight': highlight_term_selected == $index}"
+                 ng-repeat="(key, value) in terms" 
+                 ng-click="select_term(key, value, $index)">
+                {{value.name}}
+            </div>
+        </div>
+        <div class="container" ng-if="payment_term">
+            <h4>Total cost:</h4>
+            <div class="cost">
+                Salary: {{salary | currency:"£":2}}<br/>
+                Percentage: {{selected_percentage}}%<br/>
+                Total : {{total | currency:"£":2}}<br/>
+                Gross cost: {{gross_cost | currency:"£":2}}
+            </div>
+            <div class="warn" ng-if="total_life_cover > cap">
+                You have been capped to {{cap | currency:"£":2}}
+            </div>
+        </div>
+        <div class="container" ng-if="payment_term">
+            <input type="submit" value="Apply" ng-click="submit()"/>
+        </div>
+        <div class="container" ng-if="life_signup && salary == window_salary && multiple == life_signup.multiple">
+            You already have this cover....
+        </div>
+    </div>
+</div>
+
+            

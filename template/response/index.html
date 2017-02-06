@@ -1,0 +1,17 @@
+<div class="window_container clear">
+	<input type="button" value="All" ng-click="search.window = ''" class="window_live"/>
+	<input type="button" value="Live" ng-click="search.window = true" class="window_live"/>
+	<input type="button" value="Non" ng-click="search.window = false" class="window_live"/>
+</div>
+<div ng-repeat="benefit in benefits | orderBy:'provider_name' | filter:search" class="benefits" ng-if="benefit | isEmpty">
+	<div class="window_{{benefit.window}} benefit_container" ng-click="href_link(benefit.web_link)">
+	  <div class="left_container">
+	  	<img ng-src="{{benefit.icon_link}}"/>
+	  </div>
+	  <div class="right_container">
+		  <h5>{{benefit.provider_name | uppercase}}</h5>
+		  <a href="{{benefit.web_link}}">Link</a>
+	  </div>
+	</div>
+</div>
+<div ng-if="error_message_show == true" class="message">{{error_message}}</div>

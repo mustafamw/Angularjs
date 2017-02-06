@@ -1,0 +1,14 @@
+<div class="login_container">
+	<div>
+		<div class="title_header"><img src="https://mybenefits.zone/engage/sites/default/files/ernestwhite.png"/> | Login</div>
+		<form>
+			<input type="text" name="name" ng-model="username" placeholder="Username..." class="form-control"/>
+			<input type="password" name="name" ng-model="password" placeholder="Password...." class="form-control"/>
+			<div class="btn_container">
+				<input type="submit" ng-click="login()" value="Login"/>
+				<img ng-show="loader_buffer == true" ng-src="http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_512.gif"  width="20px"/>
+			</div>
+			<div class="error_message" ng-if="error_message" >{{error_message}}</div>
+		</form>
+	</div>
+</div>

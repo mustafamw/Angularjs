@@ -1,0 +1,102 @@
+<h3>Employee self service updated</h3>
+<table>
+    <thead>
+        <tr>
+            <th>
+                NI No:
+            </th>
+            <th>
+                Firstname:
+            </th>
+            <th>
+                Lastname:
+            </th>
+            <th>
+                Contact No:
+            </th>
+            <th>
+                Email:
+            </th>
+            <th>
+                Address:
+            </th>
+            <th>
+                City:
+            </th>
+            <th>
+                County:
+            </th>
+            <th>
+                Post code:
+            </th>
+            <th>
+                Bank Name:
+            </th>
+            <th>
+                Bank Holder Name:
+            </th>
+            <th>
+                Account No:
+            </th>
+            <th>
+                Sort code:
+            </th>
+            <th>
+                Submitted:
+            </th>
+        </tr>
+    </thead>
+    <tbody ng-if="ess_updated">
+        <tr ng-repeat="ess_updated in ess_updated.data.ess_updated_list">
+            <td>
+                {{ess_updated.ni_no}}
+            </td>
+            <td>
+                {{ess_updated.firstname}}
+            </td>
+            <td>
+                {{ess_updated.lastname}}
+            </td>
+            <td>
+                {{ess_updated.contact_no}}
+            </td>
+            <td>
+                {{ess_updated.email}}
+            </td>
+            <td>
+                {{ess_updated.address}}
+            </td>
+            <td>
+                {{ess_updated.city}}
+            </td>
+            <td>
+                {{ess_updated.county}}
+            </td>
+            <td>
+                {{ess_updated.postcode}}
+            </td>
+            <td>
+                {{ess_updated.bank_name}}
+            </td>
+            <td>
+                {{ess_updated.bank_holder_name}}
+            </td>
+            <td>
+                {{ess_updated.account_no}}
+            </td>
+            <td>
+                {{ess_updated.sort_code}}
+            </td>
+            <td>
+                {{ess_updated.submitted | date:'dd/MM/yyyy'}}
+            </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr ng-if="ess_updated.status != 200">
+            <td colspan="14">
+                Employee self service has not been amended ...
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,61 @@
+<h3>Cashplan Cover Signup Request</h3>
+<table class="customtable">
+	<thead>
+		<tr>
+			<th>
+				Employee No:
+			</th>
+			<th>
+				Employee Name:
+			</th>
+			<th>
+				Who:
+			</th>
+            <th>
+				Cover Level:
+			</th>
+			<th>
+				Gross cost:
+			</th>
+			<th>
+                Submitted:
+			</th>
+			<th>
+                Action:
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="list in dental_signup_list.data.dental_signup_list | orderBy:'-submitted'" ng-if="dental_signup_list.status == 200">
+			<td>
+				{{list.user_id}}
+			</td>
+			<td>
+				<spam ng-repeat="name in list.employee">
+					{{name | capitalize}}{{$last ? '' : ' '}}
+				</span>
+			</td>
+			<td>
+                {{who_type(list.who)}}
+			</td>
+            <td>
+                {{list.cover_level | capitalize}}
+			</td>
+			<td>
+                {{list.gross_cost | currency:"£":2}}
+			</td>
+            <td>
+                {{list.submitted | date:'dd/MM/yyyy'}}
+            </td>
+			<td>
+				<input type="button" value="Accept" ng-click="dental_signup_confirm(list, 'accept')"/>
+				<input type="button" value="Cancel" ng-click="dental_signup_confirm(list, 'cancel')"/>
+			</td>
+		</tr>
+        <tr ng-if="dental_signup_list.status == 404">
+			<td colspan="7">
+				Dental signup has not been made ...
+			</td>
+		</tr>
+	</tbody>
+</table>

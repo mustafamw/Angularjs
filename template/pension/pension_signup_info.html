@@ -1,0 +1,162 @@
+<h3>Pension Signup Info</h3>
+<div ng-repeat="pension_signups in pension_signup.data" ng-if="pension_signup.status == 200" >
+    <table ng-repeat="list in pension_signups">
+        <thead>
+            <tr>
+                <th>
+                    Status:
+                </th>
+                <th ng-if="list.status == 'pending'">
+                    Action:
+                </th>
+                <th ng-if="list.status == 'accept' || list.status == 'cancel'">
+                    By:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span ng-if="list.status == 'withdraw'">Withdrawn</span>
+                    <span ng-if="list.status == 'accept'">Approved <span ng-if="$index == 0 && pending == false">- <a href="#/pension/signup/amend">Amend</a></span></span>
+                    <span ng-if="list.status == 'cancel'">Canceled</span>
+                    <span ng-if="list.status == 'pending'">Pending</span>
+                </td>
+                <td>
+                    <input type="submit" value="Withdraw" ng-click="pension_signup_withdraw(list)" ng-if="list.status == 'pending'"/>
+                    <div ng-if="list.status == 'accept' || list.status == 'cancel'">
+                        <span ng-repeat="manager in  list.manager">
+                            {{manager | capitalize}}{{$last ? '' : ' '}}
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th>
+                    Employee Contribution *(Monthly):
+                </th>
+                <th>
+                    Employer Contribution *(Monthly):
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{list.employee_contribution | currency:"£":2}} - {{list.employee_contribution_percent}}%
+                </td>
+                <td>
+                    {{list.employer_contribution | currency:"£":2}} - {{list.employee_contribution_percent}}%
+                </td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th>
+                    Tax Saving Type:
+                </th>
+                <th>
+                    Saving Value *(Monthly):
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div ng-if="list.tax_saving == 'NET_SAVING'">Net Saving</div>
+                    <div ng-if="list.tax_saving == 'SALARY_SACRIFICE'">Salary Sacrifice</div>
+                </td>
+                <td>
+                    {{list.saving_value | currency:"£":2}}
+                </td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th>
+                    List Funds:
+                </th>
+                <th>
+                    Selection Funds:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <table ng-hide="list.list_fund | isEmpty">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name:
+                                </th>
+                                <th>
+                                    Value:
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="fund in list.list_fund">
+                                <td>
+                                    {{fund.name}}
+                                </td>
+                                <td>
+                                    {{fund.value | currency:"£":2}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="list.list_fund | isEmpty">
+                        You have not added pension fund
+                    </div>
+                </td>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name:
+                                </th>
+                                <th>
+                                    Percent:
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="selection in list.fund_selection">
+                                <td>
+                                    {{selection.name}}
+                                </td>
+                                <td>
+                                    {{selection.percent}}%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+        <thead>
+                <th>
+                    Submitted:
+                </th>
+                <th>
+                    Total Contribution *(Monthly):
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{list.submitted | date:'hh:mma - dd/MM/yyyy'}}
+                </td>
+                <td>
+                    {{list.total_contribution | currency:"£":2}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="pension_signup.status != 200">You have not signed up your pension contribution, <a href="#/pension/signup">Click here</a> to signup</div>

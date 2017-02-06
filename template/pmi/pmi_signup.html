@@ -1,0 +1,67 @@
+<h3>PMI Signup</h3>
+<div ng-if="pmi_signup">
+    You have already signed up: 
+    Who: <b>{{who_type(pmi_signup.who_cover) | capitalize}}</b>,  
+    Cost: <b>{{pmi_signup.gross_cost | currency:"£":2}}</b>,  
+    Date: <b>{{pmi_signup.submitted | date:'hh:mma - dd/MM/yyyy'}}</b>, 
+    Status: <b>{{status_type(pmi_signup.status) | capitalize}}</b>
+</div>
+<div class="signup" ng-if="pmi_progress">
+    <div class="signup_container">
+        <div class="container">
+            <h4>Personal Detail:</h4>
+            <div class="detail" ng-class="{'who_empty': current_who == 'none'}">
+                <label>Current Details:</label>
+                <div class="salary">Salary: {{salary | currency:"£":2}}</div>
+                <div class="dob">Date of birth: {{dob | date:'dd/MM/yyyy'}}</div>
+                <div class="dob">Age: {{age}}</div>
+            </div>
+            <div class="detail" ng-if="who && current_who != 'none'">
+                <label>Current Cover:</label>
+                <img ng-src="{{::cover_who[current_who].img}}"/>
+                <div>{{::cover_who[current_who].name}}</div>
+                <div class="cost">
+                    <p><b>{{::cover_who[who].annual_cost | currency:"£":2}}</b> p.a</p>
+                    <p><b>{{::cover_who[who].monthly_cost | currency:"£":2}}</b> monthly net cost</p>
+                </div>
+            </div>
+            <div class="detail" ng-if="who && current_who != 'none'">
+                <label>Premium Cover:</label>
+                <img ng-src="{{cover_who[premium_who].img}}"/>
+                <div>{{cover_who[premium_who].name}}</div>
+                <div class="cost">
+                    <p><b>{{gross_cost| currency:"£":2}}</b> Gross Cost</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h4>Please choose level of cover?</h4>
+            <div ng-repeat="(key, value) in cover_who" 
+                class="who {{key}}"
+                ng-class="{'highlight': highlight_cover_level_selected == $index}"
+                ng-click="selected_who(key, value, $index)">
+                <label>{{value.name}}</label>
+                <img ng-src="{{value.img}}"/>
+                <div class="cost">
+                    <p><b>{{value.annual_cost | currency:"£":2}}</b> p.a</p>
+                    <p><b>{{value.monthly_cost | currency:"£":2}}</b> monthly net cost</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h4>How much excess you want to pay?</h4>
+            <div ng-repeat="value in excess_list" 
+                class="number"
+                ng-class="{'highlight': highlight_excess_selected == $index}"
+                ng-click="selected_excess(value, $index);">
+                <p>{{value | currency:"£":2}}</p>
+            </div>
+        </div>
+        <div class="container" ng-if="excess_selected && who != current_who || current_excess != excess">
+            <input type="submit" value="Apply" ng-click="submit()" ng-disabled="who == current_who && current_excess == excess"/>
+        </div>
+        <div class="container" ng-if="excess_selected && who == current_who && current_excess == excess">
+            You already have this cover....
+        </div>
+    </div>
+</div>

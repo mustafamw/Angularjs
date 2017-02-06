@@ -1,0 +1,63 @@
+<h3>Pension Signup Request</h3>
+<table class="customtable">
+	<thead>
+		<tr>
+			<th>
+				Employee No:
+			</th>
+			<th>
+				Employee Name:
+			</th>
+			<th>
+				Employee Contribution:
+			</th>
+			<th>
+				Employer Contribution:
+			</th>
+            <th>
+				Saving Type:
+			</th>
+			<th>
+                Total Contribution:
+			</th>
+			<th>
+                Action:
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="list in pension_signup_list.data.pensions_signup_list | orderBy:'-submitted'" ng-if="pension_signup_list.status == 200">
+			<td>
+				{{list.user_id}}
+			</td>
+			<td>
+				<spam ng-repeat="name in list.employee">
+					{{name | capitalize}}{{$last ? '' : ' '}}
+				</span>
+			</td>
+			<td>
+                {{list.employee_contribution | currency:"£":2}} - {{list.employee_contribution_percent}}%
+			</td>
+			<td>
+                {{list.employer_contribution | currency:"£":2}} - {{list.employer_contribution_percent}}%
+			</td>
+			<td>
+                <div ng-if="list.tax_saving == 'NET_SAVING'">Net Saving - {{list.saving_value | currency:"£":2}}</div>
+                <div ng-if="list.tax_saving == 'SALARY_SACRIFICE'">Salary Sacrifice - {{list.saving_value | currency:"£":2}}</div>
+			</td>
+            <td>
+                {{list.total_contribution | currency:"£":2}}
+            </td>
+			<td>
+				<input type="button" value="Approve" ng-click="pension_signup_confirm(list, 'accept')"/>
+				<input type="button" value="Reject" ng-click="pension_signup_confirm(list, 'cancel')"/>
+			</td>
+		</tr>
+        <tr ng-if="pension_signup_list.status == 404">
+			<td colspan="6">
+				Pension signup has not been made ...
+			</td>
+		</tr>
+	</tbody>
+	
+</table>

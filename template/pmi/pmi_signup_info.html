@@ -1,0 +1,63 @@
+<h3>PMI Signup Info</h3>
+<div ng-repeat="pmi_signups in pmi_signup.data" ng-if="pmi_signup.status == 200">
+    <table ng-repeat="list in pmi_signups">
+        <thead>
+            <tr>
+                <th width="15%">
+                    Who:
+                    
+                </th>
+                <th width="15%">
+                    Gross Cost:
+                </th>
+                <th width="15%">
+                    Status:
+                </th>
+                <th width="20%" ng-if="list.status == 'accept' ||
+                                       list.status == 'withdraw' ||
+                                       list.status == 'cancel'">
+                    By
+                </th>
+                <th width="10%">
+                    Submitted:
+                </th>
+                <th width="15%" ng-if="list.status == 'pending'">
+                    Withdraw:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{who_type(list.who_cover) | capitalize}}
+                </td>
+                <td>
+                    {{list.gross_cost | currency:"£":2}}
+                </td>
+                <td>
+                    {{status_type(list.status)}}
+                </td>
+                <td ng-if="list.status == 'accept' ||
+                           list.status == 'withdraw' ||
+                           list.status == 'cancel'">
+                    <span ng-repeat="manager in  list.manager">
+                        {{manager | capitalize}}{{$last ? '' : ' '}}
+                    </span>
+                    <span ng-if="list.manager.firstname == '' && 
+                                list.manager.lastname == ''">
+                        You
+                    </span>
+                </td>
+                <td>
+                    {{list.submitted | date:'hh:mma - dd/MM/yyyy'}}
+                </td>
+                <td ng-if="list.status == 'pending'">
+                    <input type="submit" value="Withdraw" ng-click="pmi_signup_withdraw(list)"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="pmi_signup.status != 200">
+    You have not made PMI signup...
+</div>

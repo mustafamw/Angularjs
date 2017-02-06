@@ -1,0 +1,51 @@
+<h3>Ctw Signup Info</h3>
+
+<div ng-repeat="ctw_signups in ctw_signup.data" ng-if="ctw_signup.status == 200">
+    <table ng-repeat="list in ctw_signups">
+        <thead>
+            <tr>
+                <th width="15%">
+                    Gross Cost:
+                </th>
+                <th width="10%">
+                    Status:
+                </th>
+                <th width="20%" ng-if="list.status == 'accept' ||
+                                       list.status == 'withdraw' ||
+                                       list.status == 'cancel'">
+                    By
+                </th>
+                <th width="10%">
+                    Submitted:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{list.gross_cost | currency:"£":2}}
+                </td>
+                <td>
+                    {{status_type(list.status)}}
+                </td>
+                <td ng-if="list.status == 'accept' ||
+                           list.status == 'withdraw' ||
+                           list.status == 'cancel'">
+                    <span ng-repeat="manager in  list.manager">
+                        {{manager | capitalize}}{{$last ? '' : ' '}}
+                    </span>
+                    <span ng-if="list.manager.firstname == '' && 
+                                list.manager.lastname == ''">
+                        You
+                    </span>
+                </td>
+                <td>
+                    {{list.submitted | date:'hh:mma - dd/MM/yyyy'}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="ctw_signup.status != 200">
+    You have not made car scheme signup...
+</div>

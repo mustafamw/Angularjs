@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Angular Demo</title>
+		<script src="scripts/angularjs/angular.js"></script>
+		<script src="scripts/angularjs/angular-route.js"></script>
+		<script src="scripts/angularjs/angular-sanitize.js"></script>
+		<script src="scripts/angularjs/angular-cookies.js"></script>
+		<script src="scripts/plugins/jwt/angular-jwt.js"></script>
+		<script src="scripts/plugins/storage/ngStorage.js"></script>
+		<script src="scripts/plugins/chartjs/chart.js"></script>
+		<script src="scripts/plugins/angular-chartjs/dist/angular-chart.min.js"></script>
+		<script src="scripts/plugins/moment/moment.js"></script>
+        <script src="scripts/plugins/pikaday/pikaday.js"></script>
+		<script src="scripts/plugins/pikaday/pikaday-angular.js"></script>
+		<script src="scripts/app/app.js"></script>
+		<script src="scripts/logout_popup/service.js"></script>
+		<script src="scripts/directive/directive.js"></script>
+		<script src="scripts/filter/filter.js"></script>
+		<script src="scripts/utils/utils.js"></script>
+		<script src="scripts/utils/parse.js"></script>
+		<script src="scripts/company/factory.js"></script>
+		<script src="scripts/main/factory.js"></script>
+		<script src="scripts/date/factory.js"></script>
+		<script src="scripts/user/factory.js"></script>
+		<script src="scripts/car/factory.js"></script>
+		<script src="scripts/whitegood/factory.js"></script>
+		<script src="scripts/ctw/factory.js"></script>
+		<script src="scripts/ess/factory.js"></script>
+		<script src="scripts/employee/factory.js"></script>
+		<script src="scripts/pension/factory.js"></script>
+		<script src="scripts/pmi/factory.js"></script>
+		<script src="scripts/cashplan/factory.js"></script>
+		<script src="scripts/ccv/factory.js"></script>
+		<script src="scripts/dental/factory.js"></script>
+		<script src="scripts/cic/factory.js"></script>
+		<script src="scripts/life/factory.js"></script>
+		<script src="scripts/gip/factory.js"></script>
+		<script src="scripts/payslip/factory.js"></script>
+        <script src="scripts/holiday/factory.js"></script>        
+		<script src="scripts/wage_check/factory.js"></script>
+		<script src="scripts/trs/factory.js"></script>
+		<script src="scripts/auth/factory.js"></script>
+		<script src="scripts/offers/factory.js"></script>
+		<script src="scripts/notification/service.js"></script>
+		<script src="scripts/controller.js"></script>
+		<script src="scripts/plugins/rzslider/rzslider.js"></script>
+		<link rel="stylesheet" href="css/rzslider.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/pikaday.css">
+		<link rel="stylesheet" href="css/holiday_request.css">
+		<link rel="stylesheet" href="css/holiday_timeline.css">
+		<link rel="stylesheet" href="css/paysliptheme.css">
+		<link rel="stylesheet" href="css/trs.css">
+	</head>
+	<body class="{location}" ng-class="{logged_in:loggedIn, not_logged:!loggedIn}">
+		<div id="overlay" class="overlay" ng-if="show_overlay == true" ng-click="close()"></div>
+        <div id="confirm" class="confirm" ng-if="popup_confirm == true">
+            <h3><div ng-bind-html="confirmTitle"></div></h3>
+            <div ng-bind-html="confirmInfo"></div>
+            <input type='button' class='confirm_btn' value='{{confirm_value}}' ng-click='confirm()' ng-if="confirm_show == true"/>
+            <input type='button' class='cancel_btn' value='{{cancel_value}}' ng-click='cancel()' ng-if="cancel_show == true" ng-class="{active: confirm_show == false}"/>
+        </div>
+		
+		<div ng-controller="time_out_progress" ng-if="time_out_progress_show == true" class="timeout">
+			<div class="progress_bar"></div>
+		</div>
+		
+		<div class="menu" ng-if="loggedIn">
+			<div ng-controller="company_controller">
+				<div class="employer_company">
+					<div class='logo'>
+						<img ng-src="{{employer_company.company_icon}}"/>
+						<div>{{employer_company.company_slogan}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<ul>
+					<li>
+						<a href="#/">Benefits</a>
+					</li>
+					<li>
+						<a href="#/pension">Pension</a>
+					</li>
+					<li>
+						<a href="#/pension/signup">Pension Signup</a>
+					</li>
+					<li>
+						<a href="#/pension/signup/amend">Pension Signup Alter</a>
+					</li>
+					<li>
+						<a href="#/pension/signup/info">Pension Signup Info</a>
+					</li>
+					<li>
+						<a href="#/pension/signup/request">Pension Signup Request</a>
+					</li>
+					<li>
+						<a href="#/pmi">Private Medical</a>
+					</li>
+					<li>
+						<a href="#/pmi/signup">Private Medical Signup</a>
+					</li>
+					<li>
+						<a href="#/pmi/signup/info">Private Medical Signup Info</a>
+					</li>
+					<li>
+						<a href="#/pmi/signup/request">Private Medical Signup Request</a>
+					</li>
+					<li>
+						<a href="#/car">Car</a>
+					</li>
+					<li>
+						<a href="#/car/signup/info">Car Signup Info</a>
+					</li>
+					<li>
+						<a href="#/car/signup/request">Car Signup Request</a>
+					</li>
+					<li>
+						<a href="#/whitegood">Whitegoods</a>
+					</li>
+					<li>
+						<a href="#/whitegood/signup/info">Whitegood Signup Info</a>
+					</li>
+					<li>
+						<a href="#/whitegood/signup/request">Whietgood Signup Request</a>
+					</li>
+					<li>
+						<a href="#/ctw">Ctw</a>
+					</li>
+					<li>
+						<a href="#/ctw/signup/info">Ctw Signup Info</a>
+					</li>
+					<li>
+						<a href="#/ctw/signup/request">Ctw Signup Request</a>
+					</li>
+					<li>
+						<a href="#/cashplan">Cashplan Cover</a>
+					</li>
+					<li>
+						<a href="#/cashplan/signup">Cashplan Cover Signup</a>
+					</li>
+					<li>
+						<a href="#/cashplan/signup/info">Cashplan Cover Signup Info</a>
+					</li>
+					<li>
+						<a href="#/cashplan/signup/request">Cashplan Cover Signup Request</a>
+					</li>
+					<li>
+						<a href="#/dental">Dental Cover</a>
+					</li>
+					<li>
+						<a href="#/dental/signup">Dental Cover Signup</a>
+					</li>
+					<li>
+						<a href="#/dental/signup/info">Dental Cover Signup Info</a>
+					</li>
+					<li>
+						<a href="#/dental/signup/request">Dental Cover Signup Request</a>
+					</li>
+					<li>
+						<a href="#/cic">Critical Illness</a>
+					</li>
+					<li>
+						<a href="#/cic/signup">Critical Illness Signup</a>
+					</li>
+					<li>
+						<a href="#/cic/signup/info">Critical Illness Signup Info</a>
+					</li>
+					<li>
+						<a href="#/cic/signup/request">Critical Illness Signup Request</a>
+					</li>
+					<li>
+						<a href="#/life">Life Cover</a>
+					</li>
+					<li>
+						<a href="#/life/signup">Life Signup Cover</a>
+					</li>
+					<li>
+						<a href="#/life/signup/info">Life Signup Info</a>
+					</li>
+					<li>
+						<a href="#/life/signup/request">Life Signup Request</a>
+					</li>
+					<li>
+						<a href="#/gip">Income Protection</a>
+					</li>
+					<li>
+						<a href="#/gip/signup">Income Protection Signup</a>
+					</li>
+					<li>
+						<a href="#/gip/signup/info">Income Protection Signup Info</a>
+					</li>
+					<li>
+						<a href="#/gip/signup/request">Income Protection Signup Request</a>
+					</li>
+					<li>
+						<a href="#/voucher">Voucher</a>
+					</li>
+					<li>
+						<a href="#/cashback">Cashback</a>
+					</li>
+					<li>
+						<a href="#/giftcard">Gift Card</a>
+					</li>
+					<li>
+						<a href="#/holiday/book">Holiday Booking</a>
+					</li>
+					<li>
+						<a href="#/holiday/holidayrequest">Holiday Request</a>
+					</li>
+					<li>
+						<a href="#/holiday/settings">Holiday Settings</a>
+					</li>
+					<li>
+						<a href="#/holiday/timeline">Holiday Timeline</a>
+					</li>
+					<li>
+						<a href="#/payslip">Payslip</a>
+					</li>
+					<li>
+						<a href="#/trs">Total reward statement</a>
+					</li>
+					<li>
+						<a href="#/emi">EMI</a>
+					</li>
+					<li>
+						<a href="#/ccv">CCV</a>
+					</li>
+					<li>
+						<a href="#/ccv/signup">CCV Signup</a>
+					</li>
+					<li>
+						<a href="#/ccv/signup/info">CCV Signup info</a>
+					</li>
+					<li>
+						<a href="#/ccv/signup/request">CCV Signup Request</a>
+					</li>
+					<li>
+						<a href="#/ess">ESS</a>
+					</li>
+					<li>
+						<a href="#/ess/updated">ESS updated</a>
+					</li>
+					<li>
+						<a href="#/wagecheck">Wage Check</a>
+					</li>
+					<li>
+						<a href="#/logout">logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="wrap">
+			<div class="container">
+				<div ng-view>
+				</div>
+			</div>
+		</div>
+		<div ng-controller="info_controller" class="right_side" ng-if="right_side_details">
+			<div class="container">
+				<div ng-repeat="(key, value) in right_side_details" ng-if="key != 'link' && key != 'field_missing'">
+					<label>{{key}}</label>
+					<input type="text" value="{{value}}" ng-class="{'warn':!value}" readonly/>
+				</div>
+				<div ng-if="right_side_details.link" class="link">
+					<a href="{{right_side_details.link}}" class="edit">Edit</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

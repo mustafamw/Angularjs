@@ -1,0 +1,294 @@
+body.timeline .container
+{
+	width: 1300px;
+}
+div.nav_menu
+{
+	float: right;
+	width: 600px;
+	text-align: center;
+}
+div.nav_menu .nav_month
+{
+	width:300px;
+	float:left;
+}
+div.nav_menu div.month_info
+{
+    display: inline-block;
+    font-size: 18px;
+    position: relative;
+    top: -4px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.nav_menu .pre_month, 
+div.nav_menu .next_month,
+div.nav_menu .pre_day, 
+div.nav_menu .next_day
+{
+	background-color: orange;
+	height: 20px;
+	width: 20px;
+	border:none;
+	border-radius: 50px;
+}
+div.nav_menu .pre_month
+{
+	background-image: url("../icons/left-arrow.png");
+	background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 60%;
+
+}
+div.nav_menu .next_month
+{
+	background-image: url("../icons/right-arrow.png");
+	background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 60%;
+}
+
+ul.timeline
+{
+    list-style: none;
+    clear: both;
+    height: 35px;
+    margin-bottom: 0px;
+    border-top: 1px solid #DEDADA;
+}
+ul.timeline li.usernameinfo
+{
+	width: 170px;
+	height: 20px;
+} 
+ul.timeline li
+{
+	float: left;
+    width: 32.5px;
+    height: 100%;
+    text-align: center;
+    line-height: 33px;
+}
+
+ul.timeinfo
+{
+    list-style: none;
+    clear: both;
+    height: 35px;
+    margin-bottom: 3px;
+}
+ul.timeinfo li
+{
+	position: relative;
+    overflow: hidden;
+	float: left;
+	width: 29.48px;
+	line-height: 33px;
+	text-align: center;
+	height: 100%;
+	background: #EFEEEE;
+	margin-right: 3px;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	user-select: none; 
+	curson: normal;
+}
+ul.timeinfo li.usernameinfo
+{
+    width: 170px;
+    height: 100%;
+    border: none;
+    background: none;
+    margin-right: 3px;
+    text-align: right;
+    line-height: 35px;
+}
+ul.timeinfo li.usernameinfo .username
+{
+    display: inline-block;
+    margin-right: 3px;
+}
+ul.timeinfo li.usernameinfo .remaining
+{
+    display: inline-block;
+    background: #026C79;
+    height: 30px;
+    line-height: 29px;
+    width: 30px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    font-size: 12px;
+} 
+
+ul.timeinfo li.highlight
+{
+	background-color: #a7fffd ;
+}
+
+ul.timeinfo li div.date_title
+{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	line-height: 35px;
+	z-index: 1;
+	top: 0px;
+}
+ul.timeinfo li.booked.cancel
+{
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+ul.timeinfo li.booked.accept
+{
+    background: #00AFFF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+ul.timeinfo li.booked.pending 
+{
+    background: #FF9E00;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+ul.timeinfo li.weekends
+{
+    background: #D0D0D0 !important;
+    color: black !important;
+    font-weight: normal !important;
+}
+
+ul.timeinfo li.dayoff
+{
+    color: white;
+    background-color: #826674 !important;
+}
+
+ul.timeinfo li.publicholidays
+{
+    background: #1B2652 !important;
+    color: white !important;
+}
+ul.timeinfo li img.halfday
+{
+    position: absolute;
+    right: 18px;
+    bottom: 1px;
+    width: 10px;
+}
+.holiday_list_info
+{
+    position: fixed;
+    border: 1px solid #3073AD;
+    background: white;
+    padding: 10px;
+    width: 400px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 11px black;
+    z-index: 1002;
+}
+.holiday_list_info h3
+{
+	clear: both;
+}
+.holiday_list_info .date_input
+{
+	position: relative;
+	float: left;
+	width: 200px;
+	
+}
+.holiday_list_info #container
+{
+	width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+}
+.holiday_list_info #container input
+{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
+
+.holiday_list_info #container .half_day
+{
+	position: absolute;
+    right: 6px;
+    top: 31px;
+}
+
+.holiday_list_info #container .half_day  img
+{
+    background: #00B3FF;
+    border-radius: 50px;
+}
+
+
+.holiday_list_info .confirm_btn
+{
+	background: #35C2E6;
+    color: white;
+    font-weight: bold;
+    clear: both;
+}
+
+.holiday_list_info input[type=button]
+{
+    border: none;
+    cursor:pointer;
+    border-radius: 20px;
+    width: 48%;
+    height: 35px;
+    float: left;
+    margin: 1%;
+}
+
+.holiday_list_info .confirm_btn:hover
+{
+	background: #9CE8FB;
+}
+
+.holiday_list_info .cancel_btn
+{
+	background: #F14A4E;
+    color: white;
+    font-weight: bold;
+}
+.holiday_list_info .cancel_btn:hover
+{
+	background: #FF7679;
+}
+#myChart
+{
+	float: right;
+}
+
+.booking_controller_info
+{
+	position: fixed;
+    border: 1px solid #3073AD;
+    background: white;
+    padding: 10px;
+    width: 400px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 11px black;
+    z-index: 1002;
+}

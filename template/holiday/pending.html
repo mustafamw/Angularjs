@@ -1,0 +1,46 @@
+<h3>Holidays Pending:</h3>
+<table class="customtable">
+	<thead>
+		<tr>
+			<th>
+				Start Date:
+			</th>
+			<th>
+				End Date:
+			</th>
+			<th>
+				Taken:
+			</th>
+			<th>
+				Submitted:
+			</th>
+			<th>
+                Withdraw:
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="list in listHolidays | orderBy:'-created'" ng-if="listHolidays != ''">
+			<td>
+				{{list.start_date | date:'dd/MM/yyyy'}}<span ng-if="list.start_halfday != 'false'"> - {{list.start_halfday | capitalize}}</span>
+			</td>
+			<td>
+				{{list.end_date | date:'dd/MM/yyyy'}}<span ng-if="list.end_halfday!= 'false'"> - {{list.end_halfday | capitalize}}</span>
+			</td>
+			<td>
+				{{list.taken}}{{list.allowance_type | capitalize}}(s)
+			</td>
+			<td>
+				{{list.submitted | date:'dd/MM/yyyy'}}
+			</td>
+			<td>
+				<input type="button" value="withdraw" ng-click="holiday_withdraw(list)"/>
+			</td>
+		</tr>
+		<tr ng-if="listHolidays == '' || listHolidays == undefined">
+			<td colspan="6">
+				You have not made any booking ...
+			</td>
+		</tr>
+	</tbody>
+</table>

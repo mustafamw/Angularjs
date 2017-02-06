@@ -1,0 +1,293 @@
+<h3>Pension App</h3>
+<!--
+<pre>
+	{{pension_detail | json}}
+</pre>
+-->
+
+<div class="form_details" ng-if="pension_detail">
+	<form name="form1" ng-if="form_nav_i == 1">
+		<div class="input_container">
+			<label>Salary:</label>
+			<div class="info">
+				{{salary | currency:"£":2}}
+			</div>
+		</div>
+		<div class="input_container">
+			<label>Current Contribution:</label>
+			<div class="info">
+				{{::pension_detail.employee_contribution.amount | currency:"£":2}} - Monthly 
+				({{::pension_detail.employee_contribution.amount * 12 | currency:"£":2}} - Annually)
+			</div>
+		</div>
+		<div class="input_container">
+			<label>Expected Contribution:</label>
+			<div class="info">
+				{{pension_detail.employee_contribution.amount  | currency:"£":2}} - Monthly 
+				({{pension_detail.employee_contribution.amount * 12 | currency:"£":2}} - Annually)
+			</div>
+		</div>
+		<div class="input_container" ng-if="pension_detail.contribution.saving_type == 'NET_SAVING'">
+			<label>Net Contribution:</label>
+			<div class="info">
+			{{pension_detail.employee_contribution.amount * 0.20 | currency:"£":2}} - Monthly
+			({{(pension_detail.employee_contribution.amount * 0.20) * 12 | currency:"£":2}}
+				- Annually)
+			</div>
+			<span>Tax Relief Added @ 20%</span>
+		</div>
+		<div class="input_container" ng-if="pension_detail.contribution.saving_type == 'SALARY_SACRIFICE'">
+			<label>NI Contribution:</label>
+			<div class="info">
+			{{pension_detail.employee_contribution.amount * 0.138 | currency:"£":2}} - Monthly
+			({{(pension_detail.employee_contribution.amount* 0.138) * 12 | currency:"£":2}}
+				- Annually)
+			</div>
+			<span>NI rebate @ 13.8%</span>
+		</div>
+		<div class="input_container">
+			<label>Employer Contribution:</label>
+			<div class="info">
+			{{pension_detail.employer_contribution.amount | currency:"£":2}} - Monthly
+			({{pension_detail.employer_contribution.amount * 12 | currency:"£":2}}
+				- Annually)
+			</div>
+		</div>
+		<div class="input_container">
+			<label>Total Contribution:</label>
+			<div class="info">
+			{{pension_detail.contribution.total | currency:"£":2}} - Monthly
+			({{pension_detail.contribution.total * 12 | currency:"£":2}} - Annually)
+			</div>
+			<span>*Total for the Expected Contribution & Employer Contribution</span>
+		</div>
+		<div class="input_container">
+			<label>Saving through:</label>
+			<div class="info plain">
+				<input type="radio" ng-model="pension_detail.contribution.saving_type" value="NET_SAVING" ng-click="calculate_saving()" ng-checked="pension_detail.contribution.saving_type == 'NET_SAVING'" />NET Saving
+				<input type="radio" ng-model="pension_detail.contribution.saving_type" value="SALARY_SACRIFICE"  ng-click="calculate_saving()"  ng-checked="pension_detail.contribution.saving_type == 'SALARY_SACRIFICE'" />NI Saving
+			</div>
+		</div>
+		<div class="input_container">
+			<label>Expected Contribution:</label>
+			<input name="contribution"
+				   type="text" 
+				   placeholder="£0.00" 
+				   format="number"
+				   ng-class="{'warn':checkinbetween(expectedContribution)}"
+				   ng-model="expectedContribution"
+				   ng-keyup="expected_contribution_amount(expectedContribution)"
+				   placeholder="Employer Contribution..."
+				   required>
+			<span>Min: {{pension_detail.employee_contribution.min_amount | currency:"£":2}} - Max: {{pension_detail.employee_contribution.max_amount | currency:"£":2}} Monthly Contribution </span>
+		</div>
+		<div class="input_container">
+			<label>Expected Contribution (%):</label>
+			<rzslider rz-slider-model="expected_employee_contribution.value" 
+					  rz-slider-options="expected_employee_contribution.options"></rzslider>
+		</div>
+		<div class="form_submit">
+			<input type="submit" 
+					ng-click="form_nav_btn(+1)" 
+					value="Next" 
+					ng-if="form_nav_i != (form_nav_list.length - 1)" 
+					class="next_btn_form">
+		</div>
+	</form>
+
+	<form name="form6" ng-if="form_nav_i == 2">
+		<div class="input_container">
+			<p>Authority from an employee to their employer in connection with a group pension arrangement.</p>
+		</div>
+		<div class="input_container">
+			<label>Your Contribution:</label>
+			<div class="info">{{pension_detail.employee_contribution.amount | currency:"£":2}}</div>
+			<span>*Per Monthly</span>
+		</div>
+
+		<div class="input_container">
+			<label>Your Employer Contribution:</label>
+			<div class="info">{{pension_detail.employer_contribution.amount | currency:"£":2}}</div>
+			<span>*Per Monthly</span>
+		</div>
+		
+		<div class="input_container">
+			<label>Date:</label>
+			<div class="info">{{current_date | date:'dd/MM/yyyy'}}</div>
+		</div>
+		
+		<div>
+			<p>
+				<b>Fund selection</b>
+				Your contributions and any transfer payment will automatically
+				be invested in the fund(s) chosen for the Group Arrangement.
+				If you want to select different funds to the ones chosen for the
+				Group Arrangement for personal contributions and any transfer
+				payment, please enter the the exact fund name(s) and the
+				percentage split in the table below. 
+				
+				You can find details of the
+				funds available to you in the <a href="#" target="_blank">investment information</a>.
+				If you or your employer do not choose a fund, all contributions
+				to your plan will be invested as detailed in the Investment fund
+				allocation procedure.
+			</p>
+		</div>
+		<div class="input_container">
+			<table width="100%">
+				<thead>
+					<tr>
+						<th>Name of fund:</th>
+						<th>%</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="fund in fund_selection">
+						<td width="85%">
+							<input type="text" 
+								   ng-model="fund.name"
+								   class="fullwidth"
+								   capitalize-each
+								   ng-readonly="fund.id == 1"
+								   required/>
+						</td>
+						<td width="10%">
+							<input type="text"
+								   class="fullwidth"
+								   placeholder="Please enter the name..."
+								   ng-disabled="form6[fund.name].$invalid"
+								   name="{{fund.name+'value'}}"
+								   ng-model="fund.percent" 
+								   ng-keyup="total_fund_selection()"
+								   valid-number
+								   required/>
+						</td>
+						<td width="5%">
+							<input type="button"  
+								   class="remove" 
+								   ng-hide="$index == 0"
+								   ng-click='remove_fundselection($index)'>
+						</td>
+					</tr>
+					<tr>
+						<td width="85%">
+							Total:
+						</td>
+						<td width="10%">
+							{{total_fund_selection()}}%
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							If you want to invest in funds, please click:
+							<input type="button" 
+									ng-click="add_funds_selection()" 
+									class="add"
+									ng-disabled="total_fund_selection() >= 100 ||
+												form6[funds_selection_last.name].$invalid ||
+												form6[funds_selection_last.name+'value'].$modelValue == 0 ||
+												form6[funds_selection_last.name+'value'].$modelValue > 100"/></b>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<b>Pension investement fund must be equal to 100%.</b><br/>
+		</div>
+		<div class="input_container">
+			<input type="checkbox" ng-model="tandconfirm"/>
+			<lable>Agree with <a href="" ng-click="form_nav_btn(+1)">Terms & Conditions</a></lable>
+		</div>
+		
+		<div class="form_submit">
+			<input type="submit" ng-click="form_nav_btn(-1)" value="Back" ng-if="form_nav_i > 0" class="pre_btn_form" />
+			<input type="submit" 
+					ng-click="submit_pension(details)" 
+					value="Confirm"
+					ng-disabled="pension_detail.fund_selection.total_fund_selection != 100 || !tandconfirm"
+					ng-if="form_nav_i != (form_nav_list.length - 1)" class="next_btn_form"/>
+		</div>
+	</form>
+	<form name="form7" ng-if="form_nav_i == 3">
+		<div class="input_container">
+			<ol>
+				<li>
+					I, the Employee, mandate you, the Employer, to submitan application on my behalf to AEGON (a trading name of Scottish Equitable plc). This application will be for me to join the Group Arrangement and the AEGON scheme underlying it. AEGON will issue to me a policy or policies in connection with the Group Arrangement.
+				</li>
+				<ol type="a">
+					<li>
+						I understand I will have to accept important terms and conditions. These will be set out for me by AEGON and, if I do not cancel the policy or policies in line with the cancellation right that will be given to me, then I will be bound by those terms and conditions (and all the other terms and conditions relating to the policy or policies and the Group Arrangement).
+					</li>
+					<li>
+						This mandate is a prior request, under Article 9 of the Distance Marketing Directive, to AEGON, for them to issue to me a policy or policies in connection with the Group Arrangement and any further policy or policies in connection with new products or services that the AEGON UK group may tell me about.
+					</li>
+				</ol>
+			<li>
+				I authorise the Employer to deduct from my earnings any contribution due by me under the Group Arrangement, and for it to be sent to AEGON to be applied under that Arrangement.
+			</li>
+			<li>
+				I authorise the Employer, its agents and any agent of mine acting in connection with the Group Arrangement to pass information that is reasonably needed about me to AEGON and, where employer contributions are being paid to my policy or policies under the Group Arrangement, the financial adviser of the Group Arrangement, from time to time. 
+				<br/><br/>
+				This will be information needed in connection with the Group Arrangement and any policy or policies issued in connection with that Arrangement.
+			</li>
+			<li>
+				I agree that AEGON or its representatives may approach the scheme administrator or providers of any other registered pension scheme that I am contributing or have contributed to, to get information that AEGON feels is necessary to administer my arrangements under the Scheme.
+			</li>
+			<li>
+				Enhanced and fixed protection: I understand that joining the Group Arrangement will mean I shall lose any ‘enhanced or fixed protection’ I have applied for.
+			</li>
+			<li>
+				I understand that I will be given details of any policy to be issued, and a right to cancel. If I do not want to cancel, then:
+				<ol type="a">
+					<li>
+						I do not need to take any further action.
+					</li>
+					<li>
+						if contributions are paid to the policy or policies, then I accept this amounts to and/or confirms my agreement that I have entered into a contract with AEGON, and I have joined the Group Arrangement with AEGON.
+					</li>
+				</ol>
+			</li>
+			<li>
+				<ol type="a">
+					<li>
+						Where I have indicated that I want you to arrange a transfer, I authorise you to arrange for the transfer payment from the pension arrangement with you and not any previous employers and for AEGON to apply the transfer payment to the policy which will be set up under the Group Arrangement.
+					</li>
+					<li>
+						I agree to the payment of the transfer payment, from the transferring arrangement to AEGON, to provide benefits for me under the scheme.
+					</li>
+					<li>
+						I agree that the transfer values will be invested in line with the investment instructions for the plan.
+					</li>
+					<li>
+						I consent to AEGON seeking further information relating to the transfer payment from the provider, or scheme administrator of the transferring arrangement and authorise the provision of any information requested.
+					</li>
+					<li>
+						I understand that by giving authority to AEGON through my employer and providing a signed discharge form I authorise  the transferring of benefits on my behalf.
+					</li>
+				</ol>
+			</li>
+			<li>
+				I confirm that a copy of this employee authorisation form can be sent to AEGON and that they may rely on it.
+			</li>
+			<li>
+				I agree this is irrevocable.
+			</li>
+		</div>
+		<div class="form_submit">
+			<input type="submit" ng-click="form_nav_btn(-1)" value="Back" ng-if="form_nav_i > 0" class="pre_btn_form" />
+		</div>
+	</form>
+	<form name="form9" ng-if="form_nav_i == 4">
+		<div class="info_desc">
+			You will recieve an email of summary confirmaion.
+		</div>
+		<div class="info_image">
+			<img src="./icons/tick_green.png" class="complete"/>
+		</div>
+		<div class="form_submit">
+			<input type="submit" ng-click="form_nav_btn(-2)" value="Back" ng-if="form_nav_i > 0" class="pre_btn_form" />
+		</div>
+	</form>
+</div>
+
+

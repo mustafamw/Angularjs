@@ -1,0 +1,38 @@
+<h3>Ctw</h3>
+<table>
+    <thead>
+        <thead>
+            <tr>
+                <th width="33%">
+                    Gross Cost:
+                </th>
+                <th width="33%">
+                    Status:
+                </th>
+                <th width="33%">
+                    Submitted:
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-if="ctw.status == 200">
+            <tr ng-repeat="ctw_list in ctw.data.ctw_list">
+                <td>
+                    {{ctw_list.gross_cost | currency:"£":2}}
+                </td>
+                <td>
+                    {{status_type(ctw_list.status)}}
+                </td>
+                <td>
+                    {{ctw_list.submitted | date:'hh:mma - dd/MM/yyyy'}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="ctw.status != 200">
+            <tr>
+                <td colspan="3">
+                    Currently you dont have a car scheme...
+                </td>
+            </tr>
+        </tbody>
+    </thead>
+</table>

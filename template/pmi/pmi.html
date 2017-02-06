@@ -1,0 +1,72 @@
+<h3>PMI</h3>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Cover Level:
+            </th>
+            <th>
+                Cover Who:
+            </th>
+            <th>
+                Gross Cost:
+            </th>
+            <th>
+                Flex up:
+            </th>
+        <tr>
+    </thead>
+    <tbody>
+        <tr ng-if="pmi.status == 200">
+            <td>
+                <div ng-if="pmi.data.pmi_list[0].cover_level == 'GOLD'">
+                    <p class="label">Gold</p>
+                    <img src="./files/icons/cover_level/gold.png" />
+                </div>
+                <div ng-if="pmi.data.pmi_list[0].cover_level == 'SILVER'">
+                    <p class="label">Silver</p>
+                    <img src="./files/icons/cover_level/silver.png"/>
+                </div>
+                <div ng-if="pmi.data.pmi_list[0].cover_level == 'BRONZE'"> 
+                    <p class="label">Bronze</p>
+                    <img src="./files/icons/cover_level/bronze.png"/>
+                </div>
+            </td>
+            <td>
+                <div ng-if="pmi.data.pmi_list[0].who == 'SELF'">
+                    <p class="label">You</p>
+                    <img src="http://image005.flaticon.com/1/png/128/10/10522.png"/>
+                </div>
+                <div ng-if="pmi.data.pmi_list[0].who == 'SELF_AND_PARTNER'">
+                    <p class="label">You & Partner</p>
+                    <img src="https://cdn1.iconfinder.com/data/icons/people-13/100/People1-30-128.png"/>
+                </div>
+                <div ng-if="pmi.data.pmi_list[0].who == 'SELF_AND_CHILDREN'">
+                    <p class="label">You & Children</p>
+                    <img src="https://cdn1.iconfinder.com/data/icons/people-13/100/People1-25-128.png"/>
+                </div>
+                <div ng-if="pmi.data.pmi_list[0].who == 'FAMILY'">
+                    <p class="label">Family</p>
+                    <img src="http://image005.flaticon.com/1/png/128/57/57992.png"/>
+                </div>
+            </td>
+            <td>
+                <p class="label">{{pmi.data.pmi_list[0].gross_cost | currency:"£":2}} <span ng-if="pmi.data.pmi_list[0].gross_cost > 0">Annually</span></p>
+            </td>
+            <td>
+                <div ng-if="pmi.data.pmi_list[0].flexible">
+                    <img src="./files/icons/upgrade/upgrade.png" class="upgrade"/>
+                </div>
+                <div ng-if="!pmi.data.pmi_list[0].flexible">
+                    <p class="label">You not eligble for upgrade</p>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="pmi.status != 200">
+            <td colspan="4">
+                Currently you don't have private medical cover...
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

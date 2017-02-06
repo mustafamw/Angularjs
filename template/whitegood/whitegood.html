@@ -1,0 +1,38 @@
+<h3>White Good</h3>
+<table>
+    <thead>
+        <thead>
+            <tr>
+                <th width="33%">
+                    Gross Cost:
+                </th>
+                <th width="33%">
+                    Status:
+                </th>
+                <th width="33%">
+                    Submitted:
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-if="whitegood.status == 200">
+            <tr ng-repeat="whitegood_list in whitegood.data.whitegood_list">
+                <td>
+                    {{whitegood_list.gross_cost | currency:"£":2}}
+                </td>
+                <td>
+                    {{status_type(whitegood_list.status)}}
+                </td>
+                <td>
+                    {{whitegood_list.submitted | date:'hh:mma - dd/MM/yyyy'}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="whitegood.status != 200">
+            <tr>
+                <td colspan="3">
+                    Currently you dont have a whitegood scheme...
+                </td>
+            </tr>
+        </tbody>
+    </thead>
+</table>
